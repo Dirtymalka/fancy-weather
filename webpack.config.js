@@ -88,13 +88,13 @@ const config = {
         ]
       },
       {
-        test: /\.(jpe?g|png|svg|gif)$/,
+        test: /\.(jpeg|jpg|png|svg|gif)$/,
         use: [
           {
             loader: 'file-loader',
             options: {
-              outputPath: 'img',
-              name: '[name].[ext]'
+              outputPath: 'img/',
+              name:  'img/[name].[ext]',
             }},
           {
             loader: 'image-webpack-loader',
@@ -145,8 +145,8 @@ const config = {
       filename: './index.html'
     }),
     new CopyWebpackPlugin([
-      // {from: './src/static', to: './'},
-      // {from: './src/img', to: './img/'},
+      {from: './src/static', to: './'},
+      {from: './src/img', to: './img/'},
     ]),
   ],
 
