@@ -5,7 +5,7 @@ export default class MainCards {
     this.data = data;
   }
 
-  iterateData() {
+  createMainField() {
     this.data.forEach((card) => {
       const mainCard = this.createMainCard(card);
       mainContainer.append(mainCard);

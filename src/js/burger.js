@@ -1,7 +1,7 @@
 //const hamburgerMenu = document.querySelector('.burger-menu');
 
 const addBurgerClickHandler = () => {
-  document.querySelector('.burger-menu').addEventListener('click', (event) => {
+  document.querySelector('.burger-menu').addEventListener('click', () => {
     document.querySelector('.burger-menu').classList.toggle('active-burger');
     document.querySelector('.hamburger').classList.toggle('active-burger');
     if (document.querySelector('.burger-menu').classList.contains('active-burger')) {

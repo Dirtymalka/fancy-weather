@@ -3,34 +3,34 @@ const cards = [
     id: 1,
     name: 'Action (set A)',
     img: '/img/dance.jpg',
-    cards: [
+    linkedCards: [
       {
         id: 1,
         word: 'cry',
         translation: 'плакать',
         image: 'img/cry.jpg',
-        audioSrc: 'audio/cry.mp3'
+        audioSrc: 'https://wooordhunt.ru//data/sound/word/us/mp3/cry.mp3'
       },
       {
         id: 2,
         word: 'dance',
         translation: 'танцевать',
         image: 'img/dance.jpg',
-        audioSrc: 'audio/dance.mp3'
+        audioSrc: 'https://wooordhunt.ru//data/sound/word/us/mp3/dance.mp3'
       },
       {
         id: 3,
         word: 'dive',
         translation: 'нырять',
         image: 'img/dive.jpg',
-        audioSrc: 'audio/dive.mp3'
+        audioSrc: 'https://wooordhunt.ru//data/sound/word/us/mp3/dive.mp3'
       },
       {
         id: 4,
         word: 'draw',
         translation: 'рисовать',
         image: 'img/draw.jpg',
-        audioSrc: 'audio/draw.mp3'
+        audioSrc: 'https://wooordhunt.ru//data/sound/word/us/mp3/draw.mp3'
       },
       {
         id: 5,
@@ -44,7 +44,7 @@ const cards = [
         word: 'fly',
         translation: 'летать',
         image: 'img/fly.jpg',
-        audioSrc: 'audio/fly.mp3'
+        audioSrc: 'https://wooordhunt.ru//data/sound/word/us/mp3/fish.mp3'
       },
       {
         id: 7,
@@ -66,7 +66,7 @@ const cards = [
     id: 2,
     name: 'Action (set B)',
     img: '/img/run.jpg',
-    cards: [
+    linkedCards: [
       {
         id: 1,
         word: 'open',
@@ -129,7 +129,7 @@ const cards = [
     id: 3,
     name: 'Action (set C)',
     img: '/img/drop.jpg',
-    cards: [
+    linkedCards: [
       {
         id: 1,
         word: 'argue',
@@ -192,7 +192,7 @@ const cards = [
     id: 4,
     name: 'Adjective',
     img: '/img/friendly.jpg',
-    cards: [
+    linkedCards: [
       {
         id: 1,
         word: 'big',
@@ -255,7 +255,7 @@ const cards = [
     id: 5,
     name: 'Animal (set A)',
     img: '/img/pig.jpg',
-    cards: [
+    linkedCards: [
       {
         id: 1,
         word: 'cat',
@@ -318,7 +318,7 @@ const cards = [
     id: 6,
     name: 'Animal (set B)',
     img: '/img/lion.jpg',
-    cards: [
+    linkedCards: [
       {
         id: 1,
         word: 'bird',
@@ -381,7 +381,7 @@ const cards = [
     id: 7,
     name: 'Clothes',
     img: '/img/coat.jpg',
-    cards: [
+    linkedCards: [
       {
         id: 1,
         word: 'skirt',
@@ -444,7 +444,7 @@ const cards = [
     id: 8,
     name: 'Emotions',
     img: '/img/angry.jpg',
-    cards: [
+    linkedCards: [
       {
         id: 1,
         word: 'sad',
