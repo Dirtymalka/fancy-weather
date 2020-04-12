@@ -1,4 +1,4 @@
-//const cardsContainer = document.querySelector('.cards-container');
+// const cardsContainer = document.querySelector('.cards-container');
 
 export default class LinkedCards {
 
@@ -10,17 +10,25 @@ export default class LinkedCards {
   createLinkedField() {
     const ratingField = this.createRatingField();
     const audio = this.createAudio();
+    const soundEffect = this.createSoundEffects();
     this.cardsContainer.append(ratingField);
     this.data.forEach((card) => {
       const linkedCard = this.createLinkedCard(card);
       this.cardsContainer.append(linkedCard);
     });
     this.cardsContainer.append(audio);
+    this.cardsContainer.append(soundEffect);
   }
 
   createAudio() {
     const audioElement = document.createElement('audio');
     audioElement.className = 'audio';
+    return audioElement;
+  }
+
+  createSoundEffects() {
+    const audioElement = document.createElement('audio');
+    audioElement.className = 'sound-effect';
     return audioElement;
   }
 
@@ -48,7 +56,6 @@ export default class LinkedCards {
       }
 
       if (event.target.classList.contains('front') && !event.target.classList.contains('rotate')) {
-        console.log(event.target.dataset.id);
         this.data.forEach((elem) => {
           if (elem.id == event.target.dataset.id) {
             document.querySelector('.audio').setAttribute('src', `https://wooordhunt.ru//data/sound/word/us/mp3/${elem.word}.mp3`);
