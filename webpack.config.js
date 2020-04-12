@@ -142,7 +142,11 @@ const config = {
     }),
     new HtmlWebPackPlugin({
       template: './src/index.html',
-      filename: './index.html'
+      filename: './index.html',
+    }),
+    new HtmlWebPackPlugin({
+      template: './src/cards.html',
+      filename: './cards.html'
     }),
     new CopyWebpackPlugin([
       {from: './src/static', to: './'},
