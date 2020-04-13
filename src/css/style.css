@@ -390,6 +390,10 @@ body {
   color: #000;
 }
 
+.inactive {
+  opacity: .5;
+}
+
 .rotate {
   position: absolute;
   width: 50px;
@@ -435,6 +439,16 @@ body {
   transition: .3s;
 }
 
+.repeat {
+  width: 65px;
+  font-size: 0;
+  background-image: url(/img/repeat.svg), linear-gradient(40deg, #ffd86f, #fc6262);
+  border-radius: 50%;
+  background-repeat: no-repeat;
+  background-size: 32px 32px, cover;
+  background-position: 50%;
+}
+
 .none {
   box-sizing: border-box;
   opacity: 0;
@@ -443,4 +457,20 @@ body {
   font-size: 0;
   margin: 0;
   padding: 0;
+}
+
+.star-correct, .star-error {
+  flex-shrink: 0;
+  width: 40px;
+  min-width: 40px;
+  height: 40px;
+  background-size: 40px 40px;
+}
+
+.star-correct {
+  background-image: url(../img/star-win.svg);
+}
+
+.star-error {
+  background-image: url(../img/star.svg);
 }
