@@ -33,17 +33,4 @@ export default class MainCards {
       }
     })
   }
-
-  // linkGo() {
-  //   this.mainContainer.addEventListener('click', (event) => {
-  //     if (event.target.closest('.main-card')) {
-  //       this.mainContainer.innerHTML = '';
-  //       const linkedPage = new LinkedCards(this.data[event.target.closest('.main-card').dataset.id - 1].linkedCards);
-  //       linkedPage.createLinkedField();
-  //       linkedPage.addCardsContainerClickHandler();
-  //     }
-  //   })
-  // }
-
-
 }

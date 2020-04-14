@@ -8,6 +8,15 @@ const switchEventListener = function () {
       localStorage.setItem('switch', 'off'); // ######################################### LocalStorage #####################################################
     }
     else {
+      if (localStorage.getItem('startGame')) {
+        console.log('rety')
+        localStorage.removeItem('startGame');
+        document.querySelectorAll('.front').forEach(front => {
+          front.classList.remove('inactive');
+        })
+        document.querySelector('.rating').innerHTML = '';
+        document.querySelector('.button-start').classList.remove('repeat');
+      }
       checkBox.checked = true;
       addStylesWithSwitchOn();
       localStorage.removeItem('switch'); // ######################################### LocalStorage #####################################################
@@ -53,4 +62,5 @@ const addStylesWithSwitchOn = function () {
   if (document.querySelector('.rating')) document.querySelector('.rating').classList.add('none');
   if (document.querySelector('.button-start')) document.querySelector('.button-start').classList.add('none');
 }
+
 export {switchEventListener, addStylesWithSwitchOff, addStylesWithSwitchOn};
