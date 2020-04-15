@@ -148,6 +148,10 @@ const config = {
       template: './src/cards.html',
       filename: './cards.html'
     }),
+    new HtmlWebPackPlugin({
+      template: './src/statistics.html',
+      filename: './statistics.html'
+    }),
     new CopyWebpackPlugin([
       {from: './src/static', to: './'},
       {from: './src/img', to: './img/'},

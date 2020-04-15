@@ -4,6 +4,8 @@ import MainCards from './mainPage';
 import addBurgerClickHandler from './burger';
 import LinkedCards from './cardsPage';
 import { switchEventListener, addStylesWithSwitchOff, addStylesWithSwitchOn } from './switch';
+import statisticsArr from './statisticsData';
+import Statistics from './statistics';
 
 const bodyId = document.body.getAttribute('id');
 
@@ -14,6 +16,7 @@ if (bodyId === 'main') {
 
   if (localStorage.getItem('switch') === 'on') addStylesWithSwitchOn();
   if (localStorage.getItem('switch') === 'off') addStylesWithSwitchOff();
+  switchEventListener();
 }
 
 if (bodyId === 'cards') {
@@ -31,6 +34,15 @@ if (bodyId === 'cards') {
 
   if (localStorage.getItem('switch') === 'on') addStylesWithSwitchOn(); // ######################################### LocalStorage #####################################################
   if (localStorage.getItem('switch') === 'off') addStylesWithSwitchOff(); // ######################################### LocalStorage ###################################################
+  switchEventListener();
+}
+
+if (bodyId === 'statistics') {
+  const statistics = new Statistics(statisticsArr);
+  statistics.createStatisticsTable();
+  statistics.sortTable();
+  document.querySelector('.menu-item').classList.remove('active');
+  document.querySelector('.statistics-item').classList.add('active');
 }
 
 
@@ -42,7 +54,7 @@ const followLinksMenu = function () {
       localStorage.removeItem('parentId'); // ######################################### LocalStorage #####################################################
       localStorage.setItem('parentId', `${event.target.dataset.id}`); // ######################################### LocalStorage #####################################################
       localStorage.setItem('activeLink', `${event.target.dataset.id}`); // ######################################### LocalStorage #####################################################
-      if (bodyId === 'cards' && event.target.dataset.id !== '0') {
+      if (bodyId === 'cards' && event.target.dataset.id !== '0' && event.target.dataset.id !== '9') {
         event.preventDefault();
         document.querySelector('.cards-container').innerHTML = '';
         const linkedPage = new LinkedCards(cards[+(localStorage.getItem('parentId')) - 1].linkedCards);
@@ -53,11 +65,10 @@ const followLinksMenu = function () {
         document.querySelector('.menu').style.transform = 'translate(-100%)';
         if (localStorage.getItem('switch') === 'on') addStylesWithSwitchOn();
         if (localStorage.getItem('switch') === 'off') addStylesWithSwitchOff();
-        //////////////////////////////////////////////////////////////////////////
+
         if (document.querySelector('.button-start')) {
           document.querySelector('.button-start').addEventListener('click', addButtonStartHandler);
         }
-        /////////////////////////////////////////////////////////////////////////////
         // ######################################### LocalStorage #####################################################
       }
     }
@@ -65,6 +76,7 @@ const followLinksMenu = function () {
     //document.querySelector('.cards-container').removeEventListener('click', addCardsGameModeHandler);
   })
 }
+
 followLinksMenu();
 
 function removeActiveToLink() {
@@ -77,7 +89,7 @@ function removeActiveToLink() {
 
 // localStorage.setItem('switch', 'on');
 addBurgerClickHandler();
-switchEventListener();
+
 
 
 // document.querySelector('.switch').addEventListener('click', () => {
@@ -137,9 +149,7 @@ switchEventListener();
 
 // Game Mode ------------------------------------------------------------------------------------------------------------
 
-//if (document.querySelector('.button-start')) {
-  document.querySelector('.button-start').addEventListener('click', addButtonStartHandler);
-//}
+
 
 const arrAudio = [];
 const arrAudioRandom = [];
@@ -192,6 +202,17 @@ const addCardsGameModeHandler = function (ev) {
   if (localStorage.getItem('startGame') === 'true' && localStorage.getItem('switch') === 'off') {
     if (ev.target.classList.contains('front') && !ev.target.classList.contains('inactive')) {
       if (arrPlayedAudio[arrPlayedAudio.length - 1].id === ev.target.dataset.id) {
+
+        const statisticsArrJSON = JSON.parse(localStorage.getItem('statisticsArr'));
+        console.log(statisticsArrJSON);
+        statisticsArrJSON.forEach((card) => {
+          if (card.word === event.target.firstElementChild.innerHTML) {
+            card.correct += 1;
+            localStorage.removeItem('statisticsArr');
+            localStorage.setItem('statisticsArr', `${JSON.stringify(statisticsArrJSON)}`)
+          }
+        })
+
         document.querySelector('.sound-effect').setAttribute('src', 'https://raw.githubusercontent.com/rolling-scopes-school/tasks/master/tasks/rslang/english-for.kids.data/audio/correct.mp3');
         document.querySelector('.sound-effect').play();
         createCorrectStar();
@@ -230,6 +251,17 @@ const addCardsGameModeHandler = function (ev) {
 
         return;
       }
+
+      const statisticsArrJSON = JSON.parse(localStorage.getItem('statisticsArr'));
+      console.log(statisticsArrJSON);
+      statisticsArrJSON.forEach((card) => {
+        if (card.word === event.target.firstElementChild.innerHTML) {
+          card.error += 1;
+          localStorage.removeItem('statisticsArr');
+          localStorage.setItem('statisticsArr', `${JSON.stringify(statisticsArrJSON)}`)
+        }
+      })
+
       document.querySelector('.sound-effect').setAttribute('src', 'https://raw.githubusercontent.com/rolling-scopes-school/tasks/master/tasks/rslang/english-for.kids.data/audio/error.mp3');
       document.querySelector('.sound-effect').play();
       createErrorStar();
@@ -237,7 +269,11 @@ const addCardsGameModeHandler = function (ev) {
   }
 }
 
-document.querySelector('.cards-container').addEventListener('click', addCardsGameModeHandler);
+
+if (document.querySelector('.button-start')) {
+  document.querySelector('.button-start').addEventListener('click', addButtonStartHandler);
+  document.querySelector('.cards-container').addEventListener('click', addCardsGameModeHandler);
+}
 
 function createCorrectStar() {
   const starCorrect = document.createElement('div');
