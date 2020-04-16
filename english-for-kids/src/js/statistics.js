@@ -60,6 +60,7 @@ export default class Statistics {
         });;
         document.querySelector('.statistics').innerHTML = '';
         this.createStatisticsTable(this.statisticsData);
+        this.resetTable();
       }
     });
   }
