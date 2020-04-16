@@ -27,7 +27,7 @@ body {
   box-sizing: border-box;
   position: fixed;
   width: 380px;
-  height: calc(100vh + 20px);
+  height: 100%;
   margin: -100px 0 0;
   padding: 125px 50px 50px;
   /*left: calc(675px - 50vw);*/
@@ -567,8 +567,8 @@ body {
   border-bottom-right-radius: 3px;
 }
 
-.statistics tr:hover td{
-	background: #f2f2f2;
+.statistics tr:hover td {
+  background: #f2f2f2;
 }
 
 .statistics caption {
@@ -578,4 +578,52 @@ body {
 img.sort:hover {
   cursor: pointer;
   background-color: #66666659;
+}
+
+.reset {
+  box-sizing: border-box;
+  padding: 0px 10px;
+  font-size: 24px;
+  margin: 0px auto;
+  width: 100%;
+  height: 44px;
+  background: linear-gradient(40deg, #7366bd, #fc6262);
+  color: #fff;
+  border-radius: 10px;
+  outline: 0!important;
+  border-width: 1px;
+  transition: .3s;
+}
+
+.repeat-words {
+  box-sizing: border-box;
+  padding: 0px 10px;
+  font-size: 24px;
+  margin: 0px auto;
+  width: 100%;
+  height: 44px;
+  background: linear-gradient(40deg, #6671bd, #62fcfc);
+  color: #fff;
+  border-radius: 10px;
+  outline: 0!important;
+  border-width: 1px;
+  transition: .3s;
+}
+
+@media (max-width: 1430px) {
+  .header-container {
+    max-width: 1000px;
+  }
+}
+
+@media (max-width: 1080px) {
+  .header-container {
+    max-width: 650px;
+  }
+}
+
+@media (max-width: 730px) {
+  .header-container {
+    max-width: 300px;
+  }
 }

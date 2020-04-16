@@ -39,8 +39,10 @@ if (bodyId === 'cards') {
 
 if (bodyId === 'statistics') {
   const statistics = new Statistics(statisticsArr);
-  statistics.createStatisticsTable();
+  statistics.createStatisticsTable(statisticsArr);
   statistics.sortTable();
+  statistics.resetTable();
+  Statistics.repeatDifficultWords();
   document.querySelector('.menu-item').classList.remove('active');
   document.querySelector('.statistics-item').classList.add('active');
 }
