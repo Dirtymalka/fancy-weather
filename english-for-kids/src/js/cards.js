@@ -570,3 +570,4 @@ const cards = [
 ]
 
 export default cards;
+localStorage.setItem('dataCards', `${JSON.stringify(cards)}`);

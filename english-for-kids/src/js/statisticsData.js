@@ -1,11 +1,11 @@
 import cards from './cards';
 
 
+
 let statisticsArr = [];
 
-
 const createStatisticsData = function() {
-  if(localStorage.getItem('statisticsArr')) {
+  if(localStorage.getItem('statisticsArr') !== null && localStorage.getItem('statisticsArr') !== undefined) {
     statisticsArr = JSON.parse(localStorage.getItem('statisticsArr'));
     return;
   }
@@ -25,9 +25,11 @@ const createStatisticsData = function() {
   });
 }
 
-createStatisticsData(cards);
+
+createStatisticsData();
 
 export default statisticsArr;
+
 
 // const statisticsArrJSON = Object.assign([], statisticsArr);
  localStorage.setItem('statisticsArr', `${JSON.stringify(statisticsArr)}`)

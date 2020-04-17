@@ -7,45 +7,52 @@ import { switchEventListener, addStylesWithSwitchOff, addStylesWithSwitchOn } fr
 import statisticsArr from './statisticsData';
 import Statistics from './statistics';
 
+console.log(statisticsArr);
 const bodyId = document.body.getAttribute('id');
 
-if (bodyId === 'main') {
-  const mainPage = new MainCards(cards);
-  mainPage.createMainField();
-  mainPage.addMainCardsContainerClickHandler();
 
-  if (localStorage.getItem('switch') === 'on') addStylesWithSwitchOn();
-  if (localStorage.getItem('switch') === 'off') addStylesWithSwitchOff();
-  switchEventListener();
-}
 
-if (bodyId === 'cards') {
-  if (!localStorage.getItem('parentId')) {
-    localStorage.setItem('parentId', '1'); // ######################################### LocalStorage #####################################################
+  if (bodyId === 'main') {
+    const mainPage = new MainCards(cards);
+    mainPage.createMainField();
+    mainPage.addMainCardsContainerClickHandler();
+
+    if (localStorage.getItem('switch') === 'on') addStylesWithSwitchOn();
+    if (localStorage.getItem('switch') === 'off') addStylesWithSwitchOff();
+    switchEventListener();
   }
-  const linkedPage = new LinkedCards(cards[+localStorage.getItem('parentId') - 1].linkedCards);
-  linkedPage.createLinkedField();
-  linkedPage.addCardsContainerClickHandler();
-  removeActiveToLink();
-  const menuItems = document.querySelectorAll('.menu-item');
-  menuItems.forEach(item => {
-    if (item.dataset.id === localStorage.getItem('activeLink')) item.classList.add('active');
-  });
 
-  if (localStorage.getItem('switch') === 'on') addStylesWithSwitchOn(); // ######################################### LocalStorage #####################################################
-  if (localStorage.getItem('switch') === 'off') addStylesWithSwitchOff(); // ######################################### LocalStorage ###################################################
-  switchEventListener();
-}
+  if (bodyId === 'cards') {
+    if (!localStorage.getItem('parentId')) {
+      localStorage.setItem('parentId', '1'); // ######################################### LocalStorage #####################################################
+    }
+    const linkedPage = new LinkedCards(cards[(+localStorage.getItem('parentId') - 1)].linkedCards);
+    linkedPage.createLinkedField();
+    linkedPage.addCardsContainerClickHandler();
+    removeActiveToLink();
+    const menuItems = document.querySelectorAll('.menu-item');
+    menuItems.forEach(item => {
+      if (item.dataset.id === localStorage.getItem('activeLink')) item.classList.add('active');
+    });
 
-if (bodyId === 'statistics') {
-  const statistics = new Statistics(statisticsArr);
-  statistics.createStatisticsTable(statisticsArr);
-  statistics.sortTable();
-  statistics.resetTable();
-  Statistics.repeatDifficultWords();
-  document.querySelector('.menu-item').classList.remove('active');
-  document.querySelector('.statistics-item').classList.add('active');
-}
+    if (localStorage.getItem('switch') === 'on') addStylesWithSwitchOn(); // ######################################### LocalStorage #####################################################
+    if (localStorage.getItem('switch') === 'off') addStylesWithSwitchOff(); // ######################################### LocalStorage ###################################################
+    switchEventListener();
+  }
+
+  if (bodyId === 'statistics') {
+    const statistics = new Statistics(statisticsArr);
+    statistics.createStatisticsTable(statisticsArr);
+    statistics.sortTable();
+    statistics.resetTable();
+    Statistics.repeatDifficultWords();
+    Statistics.addWordsContainerClickHandler();
+    document.querySelector('.menu-item').classList.remove('active');
+    document.querySelector('.statistics-item').classList.add('active');
+  }
+
+
+
 
 
 const followLinksMenu = function () {
@@ -53,8 +60,10 @@ const followLinksMenu = function () {
     if (event.target.classList.contains('menu-item')) {
       removeActiveToLink();
       event.target.classList.add('active');
-      localStorage.removeItem('parentId'); // ######################################### LocalStorage #####################################################
-      localStorage.setItem('parentId', `${event.target.dataset.id}`); // ######################################### LocalStorage #####################################################
+      if (event.target.dataset.id !== '0' && event.target.dataset.id !== '9') {
+        localStorage.removeItem('parentId'); // ######################################### LocalStorage #####################################################
+        localStorage.setItem('parentId', `${event.target.dataset.id}`); // ######################################### LocalStorage #####################################################
+      }
       localStorage.setItem('activeLink', `${event.target.dataset.id}`); // ######################################### LocalStorage #####################################################
       if (bodyId === 'cards' && event.target.dataset.id !== '0' && event.target.dataset.id !== '9') {
         event.preventDefault();
@@ -73,9 +82,11 @@ const followLinksMenu = function () {
         }
         // ######################################### LocalStorage #####################################################
       }
+      // if (event.target.classList.contains('statistics-item')) {
+      //   console.log('fgh')
+      // }
     }
     localStorage.removeItem('startGame');
-    //document.querySelector('.cards-container').removeEventListener('click', addCardsGameModeHandler);
   })
 }
 
@@ -89,7 +100,6 @@ function removeActiveToLink() {
 }
 
 
-// localStorage.setItem('switch', 'on');
 addBurgerClickHandler();
 
 
@@ -166,13 +176,11 @@ function createSoundEffects() {
       });
     }
   });
-  console.log(arrAudio);
   for (let i = arrAudio.length - 1; i >= 0; i -= 1) {
     const randomAudio = randomInteger(0, i);
     arrAudioRandom.push(arrAudio[randomAudio]);
     arrAudio.splice(randomAudio, 1);
   }
-  console.log(arrAudioRandom.length);
 }
 
 

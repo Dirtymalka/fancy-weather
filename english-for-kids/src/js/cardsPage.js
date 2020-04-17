@@ -69,19 +69,17 @@ export default class LinkedCards {
             ev.target.closest('.card').classList.remove('translate');
           }
         }
-
         if (event.target.classList.contains('front') && !event.target.classList.contains('rotate')) {
-
           const statisticsArrJSON = JSON.parse(localStorage.getItem('statisticsArr'));
           console.log(statisticsArrJSON);
-          statisticsArrJSON.forEach((card) => {
+          statisticsArrJSON.forEach((item) => {
+            const card = item;
             if (card.word === event.target.firstElementChild.innerHTML) {
               card.train +=1;
               localStorage.removeItem('statisticsArr');
               localStorage.setItem('statisticsArr', `${JSON.stringify(statisticsArrJSON)}`)
             }
           })
-
           this.data.forEach((elem) => {
             if (elem.id === event.target.dataset.id) {
               document.querySelector('.audio').setAttribute('src', `https://wooordhunt.ru//data/sound/word/us/mp3/${elem.word}.mp3`);

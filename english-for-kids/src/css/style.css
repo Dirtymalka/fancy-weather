@@ -413,7 +413,7 @@ body {
   filter: none;
 }
 
-.card-cover .front, .back {
+.card-cover .front{
   background-size: cover;
   background-position: 50%;
 }
