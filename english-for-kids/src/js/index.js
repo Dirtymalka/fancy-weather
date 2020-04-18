@@ -1,16 +1,24 @@
 import '../css/style.css';
-import cards from './cards';
-import MainCards from './mainPage';
-import addBurgerClickHandler from './burger';
-import LinkedCards from './cardsPage';
-import { switchEventListener, addStylesWithSwitchOff, addStylesWithSwitchOn } from './switch';
-import statisticsArr from './statisticsData';
-import Statistics from './statistics';
+import cards from '../modules/cards';
+import MainCards from '../modules/mainPage';
+import addBurgerClickHandler from '../modules/burger';
+import LinkedCards from '../modules/cardsPage';
+import { switchEventListener, addStylesWithSwitchOff, addStylesWithSwitchOn } from '../modules/switch';
+import statisticsArrZero from '../modules/statisticsData';
+import Statistics from '../modules/statistics';
+import { followLinksMenu, removeActiveToLink } from '../modules/links'
+import { addCardsGameModeHandler, addButtonStartHandler } from '../modules/gameMode'
 
-console.log(statisticsArr);
-const bodyId = document.body.getAttribute('id');
+window.onload = () => {
 
+  const bodyId = document.body.getAttribute('id');
+  let statisticsArr = [];
 
+  if (localStorage.getItem('statisticsArr')) {
+    statisticsArr = JSON.parse(localStorage.getItem('statisticsArr'));
+  } else {
+    statisticsArr = statisticsArrZero.slice();
+  }
 
   if (bodyId === 'main') {
     const mainPage = new MainCards(cards);
@@ -24,7 +32,7 @@ const bodyId = document.body.getAttribute('id');
 
   if (bodyId === 'cards') {
     if (!localStorage.getItem('parentId')) {
-      localStorage.setItem('parentId', '1'); // ######################################### LocalStorage #####################################################
+      localStorage.setItem('parentId', '1');
     }
     const linkedPage = new LinkedCards(cards[(+localStorage.getItem('parentId') - 1)].linkedCards);
     linkedPage.createLinkedField();
@@ -35,14 +43,14 @@ const bodyId = document.body.getAttribute('id');
       if (item.dataset.id === localStorage.getItem('activeLink')) item.classList.add('active');
     });
 
-    if (localStorage.getItem('switch') === 'on') addStylesWithSwitchOn(); // ######################################### LocalStorage #####################################################
-    if (localStorage.getItem('switch') === 'off') addStylesWithSwitchOff(); // ######################################### LocalStorage ###################################################
+    if (localStorage.getItem('switch') === 'on') addStylesWithSwitchOn();
+    if (localStorage.getItem('switch') === 'off') addStylesWithSwitchOff();
     switchEventListener();
   }
 
   if (bodyId === 'statistics') {
     const statistics = new Statistics(statisticsArr);
-    statistics.createStatisticsTable(statisticsArr);
+    statistics.createStatisticsTable();
     statistics.sortTable();
     statistics.resetTable();
     Statistics.repeatDifficultWords();
@@ -51,254 +59,20 @@ const bodyId = document.body.getAttribute('id');
     document.querySelector('.statistics-item').classList.add('active');
   }
 
+  followLinksMenu();
+  addBurgerClickHandler();
 
 
+  if (document.querySelector('.button-start')) {
+    document.querySelector('.button-start').addEventListener('click', addButtonStartHandler);
+    document.querySelector('.cards-container').addEventListener('click', addCardsGameModeHandler);
+  }
 
-
-const followLinksMenu = function () {
-  document.querySelector('.menu').addEventListener('click', (event) => {
-    if (event.target.classList.contains('menu-item')) {
-      removeActiveToLink();
-      event.target.classList.add('active');
-      if (event.target.dataset.id !== '0' && event.target.dataset.id !== '9') {
-        localStorage.removeItem('parentId'); // ######################################### LocalStorage #####################################################
-        localStorage.setItem('parentId', `${event.target.dataset.id}`); // ######################################### LocalStorage #####################################################
-      }
-      localStorage.setItem('activeLink', `${event.target.dataset.id}`); // ######################################### LocalStorage #####################################################
-      if (bodyId === 'cards' && event.target.dataset.id !== '0' && event.target.dataset.id !== '9') {
-        event.preventDefault();
-        document.querySelector('.cards-container').innerHTML = '';
-        const linkedPage = new LinkedCards(cards[+(localStorage.getItem('parentId')) - 1].linkedCards);
-        linkedPage.createLinkedField();
-        linkedPage.addCardsContainerClickHandler();
-        document.querySelector('.burger-menu').classList.toggle('active-burger');
-        document.querySelector('.hamburger').classList.toggle('active-burger');
-        document.querySelector('.menu').style.transform = 'translate(-100%)';
-        if (localStorage.getItem('switch') === 'on') addStylesWithSwitchOn();
-        if (localStorage.getItem('switch') === 'off') addStylesWithSwitchOff();
-
-        if (document.querySelector('.button-start')) {
-          document.querySelector('.button-start').addEventListener('click', addButtonStartHandler);
-        }
-        // ######################################### LocalStorage #####################################################
-      }
-      // if (event.target.classList.contains('statistics-item')) {
-      //   console.log('fgh')
-      // }
-    }
-    localStorage.removeItem('startGame');
-  })
-}
-
-followLinksMenu();
-
-function removeActiveToLink() {
-  const menuItems = document.querySelectorAll('.menu-item');
-  menuItems.forEach(item => {
-    item.classList.remove('active');
-  });
-}
-
-
-addBurgerClickHandler();
-
-
-
-// document.querySelector('.switch').addEventListener('click', () => {
-//   const checkBox = document.querySelector('.switch-input');
-//   if (checkBox.checked) {
-//     checkBox.checked = false;
-//     addStylesWithSwitchOff();
-//     localStorage.removeItem('switch'); // ######################################### LocalStorage #####################################################
-//     localStorage.setItem('switch', 'off'); // ######################################### LocalStorage #####################################################
-//   }
-//   else {
-//     checkBox.checked = true;
-//     addStylesWithSwitchOn();
-//     localStorage.removeItem('switch'); // ######################################### LocalStorage #####################################################
-//     localStorage.setItem('switch', 'on'); // ######################################### LocalStorage #####################################################
-//   }
-// })
-
-// function addStylesWithSwitchOff() {
-//   document.querySelector('.switch-input').checked = false;
-//   document.querySelector('.menu').classList.remove('green');
-//   document.querySelectorAll('.main-card').forEach(card => {
-//     card.classList.remove('green');
-//   });
-//   document.querySelectorAll('.card').forEach(card => {
-//     card.classList.add('card-cover');
-//   });
-//   document.querySelectorAll('.card-header').forEach(card => {
-//     card.classList.add('none');
-//   });
-//   document.querySelectorAll('.rotate').forEach(card => {
-//     card.classList.add('none');
-//   });
-//   if (document.querySelector('.rating')) document.querySelector('.rating').classList.remove('none');
-//   if (document.querySelector('.button-start')) document.querySelector('.button-start').classList.remove('none');
-// }
-
-// function addStylesWithSwitchOn() {
-//   document.querySelector('.switch-input').checked = true;
-//   document.querySelector('.menu').classList.add('green');
-//   document.querySelectorAll('.main-card').forEach(card => {
-//     card.classList.add('green');
-//   });
-//   document.querySelectorAll('.card').forEach(card => {
-//     card.classList.remove('card-cover');
-//   });
-//   document.querySelectorAll('.card-header').forEach(card => {
-//     card.classList.remove('none');
-//   });
-//   document.querySelectorAll('.rotate').forEach(card => {
-//     card.classList.remove('none');
-//   });
-//   if (document.querySelector('.rating')) document.querySelector('.rating').classList.add('none');
-//   if (document.querySelector('.button-start')) document.querySelector('.button-start').classList.add('none');
-// }
-
-
-// Game Mode ------------------------------------------------------------------------------------------------------------
-
-
-
-const arrAudio = [];
-const arrAudioRandom = [];
-const arrPlayedAudio = [];
-
-function createSoundEffects() {
-  arrAudioRandom.length = 0;
-  cards.forEach(mainCard => {
-    if (mainCard.id === localStorage.getItem('parentId')) {
-      mainCard.linkedCards.forEach(card => {
-        arrAudio.push({ id: card.id, audio: card.audioSrc });
-      });
+  document.addEventListener('click', (ev) => {
+    if (!ev.target.closest('.navigation') && document.querySelector('.burger-menu').classList.contains('active-burger')) {
+      document.querySelector('.burger-menu').classList.toggle('active-burger');
+      document.querySelector('.hamburger').classList.toggle('active-burger');
+      document.querySelector('.menu').style.transform = 'translate(-100%)';
     }
   });
-  for (let i = arrAudio.length - 1; i >= 0; i -= 1) {
-    const randomAudio = randomInteger(0, i);
-    arrAudioRandom.push(arrAudio[randomAudio]);
-    arrAudio.splice(randomAudio, 1);
-  }
-}
-
-
-const playSoundEffect = function () {
-  document.querySelector('.audio').setAttribute('src', arrAudioRandom[arrAudioRandom.length - 1].audio);
-  document.querySelector('.audio').play();
-  arrPlayedAudio.push(arrAudioRandom.pop());
-}
-
-
-
-function addButtonStartHandler(event) {
-  if (!localStorage.getItem('startGame')) {
-    document.querySelector('.button-start').classList.add('repeat');
-    localStorage.setItem('startGame', 'true'); // ######################################### LocalStorage #####################################################
-
-    createSoundEffects();
-    playSoundEffect();
-
-  }
-  if (localStorage.getItem('startGame')) document.querySelector('.audio').play();
-}
-
-function goToMainPage() {
-  document.location.href = '/index.html';
-}
-
-const addCardsGameModeHandler = function (ev) {
-  if (localStorage.getItem('startGame') === 'true' && localStorage.getItem('switch') === 'off') {
-    if (ev.target.classList.contains('front') && !ev.target.classList.contains('inactive')) {
-      if (arrPlayedAudio[arrPlayedAudio.length - 1].id === ev.target.dataset.id) {
-
-        const statisticsArrJSON = JSON.parse(localStorage.getItem('statisticsArr'));
-        console.log(statisticsArrJSON);
-        statisticsArrJSON.forEach((card) => {
-          if (card.word === event.target.firstElementChild.innerHTML) {
-            card.correct += 1;
-            localStorage.removeItem('statisticsArr');
-            localStorage.setItem('statisticsArr', `${JSON.stringify(statisticsArrJSON)}`)
-          }
-        })
-
-        document.querySelector('.sound-effect').setAttribute('src', 'https://raw.githubusercontent.com/rolling-scopes-school/tasks/master/tasks/rslang/english-for.kids.data/audio/correct.mp3');
-        document.querySelector('.sound-effect').play();
-        createCorrectStar();
-        ev.target.classList.add('inactive');
-        if (arrAudioRandom.length === 0) {
-          const starsCorrect = document.querySelectorAll('.star-correct');
-          const starError = document.querySelectorAll('.star-error');
-          if (starError.length === 0) {
-            const success = document.createElement('div');
-            success.className = 'success-block';
-            success.innerHTML = `<img src="/img/success.jpg"></img>`;
-            document.body.append(success);
-            document.querySelector('.sound-effect').setAttribute('src', 'https://raw.githubusercontent.com/rolling-scopes-school/tasks/master/tasks/rslang/english-for.kids.data/audio/success.mp3');
-            document.querySelector('.sound-effect').play();
-            localStorage.removeItem('startGame');
-            document.querySelector('.switch-input').checked = true;
-            localStorage.removeItem('switch');
-            localStorage.setItem('switch', 'on');
-            setTimeout(goToMainPage, 3000);
-            return;
-          }
-          const failure = document.createElement('div');
-          failure.className = 'failure-block';
-          failure.innerHTML = `<div>${starError.length} errors</div><img src="/img/failure.jpg"></img>`;
-          document.body.append(failure);
-          document.querySelector('.sound-effect').setAttribute('src', 'https://raw.githubusercontent.com/rolling-scopes-school/tasks/master/tasks/rslang/english-for.kids.data/audio/failure.mp3');
-          document.querySelector('.sound-effect').play();
-          localStorage.removeItem('startGame');
-          document.querySelector('.switch-input').checked = true;
-          localStorage.removeItem('switch');
-          localStorage.setItem('switch', 'on');
-          setTimeout(goToMainPage, 3000);
-        }
-
-        setTimeout(playSoundEffect, 1000);
-
-        return;
-      }
-
-      const statisticsArrJSON = JSON.parse(localStorage.getItem('statisticsArr'));
-      console.log(statisticsArrJSON);
-      statisticsArrJSON.forEach((card) => {
-        if (card.word === event.target.firstElementChild.innerHTML) {
-          card.error += 1;
-          localStorage.removeItem('statisticsArr');
-          localStorage.setItem('statisticsArr', `${JSON.stringify(statisticsArrJSON)}`)
-        }
-      })
-
-      document.querySelector('.sound-effect').setAttribute('src', 'https://raw.githubusercontent.com/rolling-scopes-school/tasks/master/tasks/rslang/english-for.kids.data/audio/error.mp3');
-      document.querySelector('.sound-effect').play();
-      createErrorStar();
-    }
-  }
-}
-
-
-if (document.querySelector('.button-start')) {
-  document.querySelector('.button-start').addEventListener('click', addButtonStartHandler);
-  document.querySelector('.cards-container').addEventListener('click', addCardsGameModeHandler);
-}
-
-function createCorrectStar() {
-  const starCorrect = document.createElement('div');
-  starCorrect.className = 'star-correct';
-  document.querySelector('.rating').append(starCorrect);
-}
-
-function createErrorStar() {
-  const starError = document.createElement('div');
-  starError.className = 'star-error';
-  document.querySelector('.rating').append(starError);
-}
-
-
-function randomInteger(min, max) {
-  const rand = min - 0.5 + Math.random() * (max - min + 1);
-  return Math.round(rand);
 }

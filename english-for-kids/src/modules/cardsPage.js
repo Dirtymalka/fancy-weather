@@ -1,9 +1,6 @@
-// const cardsContainer = document.querySelector('.cards-container');
-// import statisticsArr from './statisticsData';
 export default class LinkedCards {
-
   constructor(data) {
-    this.data = data // cards.linkedCards
+    this.data = data
     this.cardsContainer = document.querySelector('.cards-container');
   }
 
@@ -59,9 +56,6 @@ export default class LinkedCards {
 
   addCardsContainerClickHandler() {
     this.cardsContainer.addEventListener('click', (event) => {
-      document.querySelector('.burger-menu').classList.remove('active-burger');
-      document.querySelector('.hamburger').classList.remove('active-burger');
-      document.querySelector('.menu').style.transform = 'translate(-100%)';
       if (document.querySelector('.switch-input').checked) {
         if (event.target.classList.contains('rotate')) {
           event.target.closest('.card').classList.add('translate');
@@ -71,7 +65,6 @@ export default class LinkedCards {
         }
         if (event.target.classList.contains('front') && !event.target.classList.contains('rotate')) {
           const statisticsArrJSON = JSON.parse(localStorage.getItem('statisticsArr'));
-          console.log(statisticsArrJSON);
           statisticsArrJSON.forEach((item) => {
             const card = item;
             if (card.word === event.target.firstElementChild.innerHTML) {

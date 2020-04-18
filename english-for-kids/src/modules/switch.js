@@ -1,30 +1,3 @@
-const switchEventListener = function () {
-  document.querySelector('.switch').addEventListener('click', () => {
-    const checkBox = document.querySelector('.switch-input');
-    if (checkBox.checked) {
-      checkBox.checked = false;
-      addStylesWithSwitchOff();
-      localStorage.removeItem('switch'); // ######################################### LocalStorage #####################################################
-      localStorage.setItem('switch', 'off'); // ######################################### LocalStorage #####################################################
-    }
-    else {
-      if (localStorage.getItem('startGame')) {
-        console.log('rety')
-        localStorage.removeItem('startGame');
-        document.querySelectorAll('.front').forEach(front => {
-          front.classList.remove('inactive');
-        })
-        document.querySelector('.rating').innerHTML = '';
-        document.querySelector('.button-start').classList.remove('repeat');
-      }
-      checkBox.checked = true;
-      addStylesWithSwitchOn();
-      localStorage.removeItem('switch'); // ######################################### LocalStorage #####################################################
-      localStorage.setItem('switch', 'on'); // ######################################### LocalStorage #####################################################
-    }
-  })
-}
-
 const addStylesWithSwitchOff = function () {
   document.querySelector('.switch-input').checked = false;
   document.querySelector('.menu').classList.remove('green');
@@ -63,4 +36,33 @@ const addStylesWithSwitchOn = function () {
   if (document.querySelector('.button-start')) document.querySelector('.button-start').classList.add('none');
 }
 
-export {switchEventListener, addStylesWithSwitchOff, addStylesWithSwitchOn};
+const switchEventListener = function () {
+  document.querySelector('.switch').addEventListener('click', () => {
+    document.querySelector('.burger-menu').classList.remove('active-burger');
+    document.querySelector('.hamburger').classList.remove('active-burger');
+    document.querySelector('.menu').style.transform = 'translate(-100%)';
+    const checkBox = document.querySelector('.switch-input');
+    if (checkBox.checked) {
+      checkBox.checked = false;
+      addStylesWithSwitchOff();
+      localStorage.removeItem('switch');
+      localStorage.setItem('switch', 'off');
+    }
+    else {
+      if (localStorage.getItem('startGame')) {
+        localStorage.removeItem('startGame');
+        document.querySelectorAll('.front').forEach(front => {
+          front.classList.remove('inactive');
+        })
+        document.querySelector('.rating').innerHTML = '';
+        document.querySelector('.button-start').classList.remove('repeat');
+      }
+      checkBox.checked = true;
+      addStylesWithSwitchOn();
+      localStorage.removeItem('switch');
+      localStorage.setItem('switch', 'on');
+    }
+  })
+}
+
+export { switchEventListener, addStylesWithSwitchOff, addStylesWithSwitchOn };

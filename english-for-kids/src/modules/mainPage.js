@@ -1,6 +1,3 @@
-// const mainContainer = document.querySelector('.main-container')
-import LinkedCards from './cardsPage';
-
 export default class MainCards {
   constructor(data) {
     this.data = data;
@@ -26,7 +23,6 @@ export default class MainCards {
   addMainCardsContainerClickHandler() {
     this.mainContainer.addEventListener('click', (event) => {
       if (event.target.closest('.main-card')) {
-        console.log(event.target.dataset.id);
         localStorage.removeItem('parentId');
         localStorage.setItem('parentId', `${event.target.closest('.main-card').dataset.id}`);
         localStorage.setItem('activeLink', `${event.target.closest('.main-card').dataset.id}`);

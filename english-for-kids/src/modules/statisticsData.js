@@ -2,13 +2,9 @@ import cards from './cards';
 
 
 
-let statisticsArr = [];
+const statisticsArrZero = [];
 
 const createStatisticsData = function() {
-  if(localStorage.getItem('statisticsArr') !== null && localStorage.getItem('statisticsArr') !== undefined) {
-    statisticsArr = JSON.parse(localStorage.getItem('statisticsArr'));
-    return;
-  }
   cards.forEach(cat => {
     const obj = {};
     obj.category = cat.name;
@@ -20,7 +16,7 @@ const createStatisticsData = function() {
       clone.correct = 0;
       clone.error = 0;
       clone.percent = 0;
-      statisticsArr.push(clone);
+      statisticsArrZero.push(clone);
     });
   });
 }
@@ -28,8 +24,8 @@ const createStatisticsData = function() {
 
 createStatisticsData();
 
-export default statisticsArr;
+export default statisticsArrZero;
 
-
-// const statisticsArrJSON = Object.assign([], statisticsArr);
- localStorage.setItem('statisticsArr', `${JSON.stringify(statisticsArr)}`)
+if(!localStorage.getItem('statisticsArr') || localStorage.getItem('statisticsArr') === 'null') {
+  localStorage.setItem('statisticsArr', `${JSON.stringify(statisticsArrZero)}`)
+  }
