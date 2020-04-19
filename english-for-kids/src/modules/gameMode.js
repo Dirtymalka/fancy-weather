@@ -46,7 +46,7 @@ const playSoundEffect = function () {
 function addButtonStartHandler(event) {
   if (!localStorage.getItem('startGame')) {
     document.querySelector('.button-start').classList.add('repeat');
-    localStorage.setItem('startGame', 'true'); // ######################################### LocalStorage #####################################################
+    localStorage.setItem('startGame', 'true');
 
     createSoundEffects();
     playSoundEffect();
