@@ -1,5 +1,10 @@
 import cards from './cards';
 
+const startGameLS = 'startGame';
+const statisticsArrLS = 'statisticsArr';
+const parentIdLS = 'parentId';
+const positionSwitch = 'switch';
+
 const arrAudio = [];
 const arrAudioRandom = [];
 const arrPlayedAudio = [];
@@ -24,7 +29,7 @@ function randomInteger(min, max) {
 function createSoundEffects() {
   arrAudioRandom.length = 0;
   cards.forEach(mainCard => {
-    if (mainCard.id === localStorage.getItem('parentId')) {
+    if (mainCard.id === localStorage.getItem(parentIdLS)) {
       mainCard.linkedCards.forEach(card => {
         arrAudio.push({ id: card.id, audio: card.audioSrc });
       });
@@ -37,39 +42,40 @@ function createSoundEffects() {
   }
 }
 
-const playSoundEffect = function () {
+const playSoundEffect = () => {
   document.querySelector('.audio').setAttribute('src', arrAudioRandom[arrAudioRandom.length - 1].audio);
   document.querySelector('.audio').play();
   arrPlayedAudio.push(arrAudioRandom.pop());
 }
 
-function addButtonStartHandler(event) {
-  if (!localStorage.getItem('startGame')) {
+function addButtonStartHandler() {
+  if (!localStorage.getItem(startGameLS)) {
     document.querySelector('.button-start').classList.add('repeat');
-    localStorage.setItem('startGame', 'true');
+    localStorage.setItem(startGameLS, 'true');
 
     createSoundEffects();
     playSoundEffect();
 
   }
-  if (localStorage.getItem('startGame')) document.querySelector('.audio').play();
+  if (localStorage.getItem(startGameLS)) {
+    document.querySelector('.audio').play();
+  }
 }
 
 function goToMainPage() {
   document.location.href = '/index.html';
 }
 
-const addCardsGameModeHandler = function (ev) {
-  if (localStorage.getItem('startGame') === 'true' && localStorage.getItem('switch') === 'off') {
+const addCardsGameModeHandler = (ev) => {
+  if (localStorage.getItem(startGameLS) === 'true' && localStorage.getItem(positionSwitch) === 'off') {
     if (ev.target.classList.contains('front') && !ev.target.classList.contains('inactive')) {
       if (arrPlayedAudio[arrPlayedAudio.length - 1].id === ev.target.dataset.id) {
 
-        const statisticsArrJSON = JSON.parse(localStorage.getItem('statisticsArr'));
+        const statisticsArrJSON = JSON.parse(localStorage.getItem(statisticsArrLS));
         statisticsArrJSON.forEach((card) => {
-          if (card.word === event.target.firstElementChild.innerHTML) {
+          if (card.word === ev.target.firstElementChild.innerHTML) {
             card.correct += 1;
-            localStorage.removeItem('statisticsArr');
-            localStorage.setItem('statisticsArr', `${JSON.stringify(statisticsArrJSON)}`)
+            localStorage.setItem(statisticsArrLS, JSON.stringify(statisticsArrJSON));
           }
         })
 
@@ -86,10 +92,9 @@ const addCardsGameModeHandler = function (ev) {
             document.body.append(success);
             document.querySelector('.sound-effect').setAttribute('src', 'https://raw.githubusercontent.com/rolling-scopes-school/tasks/master/tasks/rslang/english-for.kids.data/audio/success.mp3');
             document.querySelector('.sound-effect').play();
-            localStorage.removeItem('startGame');
+            localStorage.removeItem(startGameLS);
             document.querySelector('.switch-input').checked = true;
-            localStorage.removeItem('switch');
-            localStorage.setItem('switch', 'on');
+            localStorage.setItem(positionSwitch, 'on');
             setTimeout(goToMainPage, 3000);
             return;
           }
@@ -99,10 +104,9 @@ const addCardsGameModeHandler = function (ev) {
           document.body.append(failure);
           document.querySelector('.sound-effect').setAttribute('src', 'https://raw.githubusercontent.com/rolling-scopes-school/tasks/master/tasks/rslang/english-for.kids.data/audio/failure.mp3');
           document.querySelector('.sound-effect').play();
-          localStorage.removeItem('startGame');
+          localStorage.removeItem(startGameLS);
           document.querySelector('.switch-input').checked = true;
-          localStorage.removeItem('switch');
-          localStorage.setItem('switch', 'on');
+          localStorage.setItem(positionSwitch, 'on');
           setTimeout(goToMainPage, 3000);
         }
 
@@ -111,12 +115,11 @@ const addCardsGameModeHandler = function (ev) {
         return;
       }
 
-      const statisticsArrJSON = JSON.parse(localStorage.getItem('statisticsArr'));
+      const statisticsArrJSON = JSON.parse(localStorage.getItem(statisticsArrLS));
       statisticsArrJSON.forEach((card) => {
-        if (card.word === event.target.firstElementChild.innerHTML) {
+        if (card.word === ev.target.firstElementChild.innerHTML) {
           card.error += 1;
-          localStorage.removeItem('statisticsArr');
-          localStorage.setItem('statisticsArr', `${JSON.stringify(statisticsArrJSON)}`)
+          localStorage.setItem(statisticsArrLS, JSON.stringify(statisticsArrJSON));
         }
       })
 

@@ -6,49 +6,59 @@ import LinkedCards from '../modules/cardsPage';
 import { switchEventListener, addStylesWithSwitchOff, addStylesWithSwitchOn } from '../modules/switch';
 import statisticsArrZero from '../modules/statisticsData';
 import Statistics from '../modules/statistics';
-import { followLinksMenu, removeActiveToLink } from '../modules/links'
-import { addCardsGameModeHandler, addButtonStartHandler } from '../modules/gameMode'
+import { followLinksMenu, removeActiveToLink } from '../modules/links';
+import { addCardsGameModeHandler, addButtonStartHandler } from '../modules/gameMode';
+
+const statisticsArrLS = 'statisticsArr';
+const parentIdLS = 'parentId';
+const activeLinkLS = 'activeLink';
+const positionSwitch = 'switch';
 
 window.onload = () => {
 
-  const bodyId = document.body.getAttribute('id');
+  const appContainer = document.querySelector('.application-container');
+  const appContainerId = appContainer.getAttribute('id');
   let statisticsArr = [];
 
-  if (localStorage.getItem('statisticsArr')) {
-    statisticsArr = JSON.parse(localStorage.getItem('statisticsArr'));
+  if (localStorage.getItem(statisticsArrLS)) {
+    statisticsArr = JSON.parse(localStorage.getItem(statisticsArrLS));
   } else {
     statisticsArr = statisticsArrZero.slice();
   }
 
-  if (bodyId === 'main') {
+  if (appContainerId === 'main') {
     const mainPage = new MainCards(cards);
     mainPage.createMainField();
     mainPage.addMainCardsContainerClickHandler();
 
-    if (localStorage.getItem('switch') === 'on') addStylesWithSwitchOn();
-    if (localStorage.getItem('switch') === 'off') addStylesWithSwitchOff();
+    if (localStorage.getItem(positionSwitch) === 'on') {
+      addStylesWithSwitchOn();
+    }
+    if (localStorage.getItem(positionSwitch) === 'off') {
+      addStylesWithSwitchOff();
+    }
     switchEventListener();
   }
 
-  if (bodyId === 'cards') {
-    if (!localStorage.getItem('parentId')) {
-      localStorage.setItem('parentId', '1');
+  if (appContainerId === 'cards') {
+    if (!localStorage.getItem(parentIdLS)) {
+      localStorage.setItem(parentIdLS, '1');
     }
-    const linkedPage = new LinkedCards(cards[(+localStorage.getItem('parentId') - 1)].linkedCards);
+    const linkedPage = new LinkedCards(cards[(+localStorage.getItem(parentIdLS) - 1)].linkedCards);
     linkedPage.createLinkedField();
     linkedPage.addCardsContainerClickHandler();
     removeActiveToLink();
     const menuItems = document.querySelectorAll('.menu-item');
     menuItems.forEach(item => {
-      if (item.dataset.id === localStorage.getItem('activeLink')) item.classList.add('active');
+      if (item.dataset.id === localStorage.getItem(activeLinkLS)) item.classList.add('active');
     });
 
-    if (localStorage.getItem('switch') === 'on') addStylesWithSwitchOn();
-    if (localStorage.getItem('switch') === 'off') addStylesWithSwitchOff();
+    if (localStorage.getItem(positionSwitch) === 'on') addStylesWithSwitchOn();
+    if (localStorage.getItem(positionSwitch) === 'off') addStylesWithSwitchOff();
     switchEventListener();
   }
 
-  if (bodyId === 'statistics') {
+  if (appContainerId === 'statistics') {
     const statistics = new Statistics(statisticsArr);
     statistics.createStatisticsTable();
     statistics.sortTable();

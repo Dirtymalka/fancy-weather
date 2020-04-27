@@ -1,4 +1,7 @@
-const addStylesWithSwitchOff = function () {
+const positionSwitch = 'switch';
+const startGameLS = 'startGame';
+
+const addStylesWithSwitchOff = () => {
   document.querySelector('.switch-input').checked = false;
   document.querySelector('.menu').classList.remove('green');
   document.querySelectorAll('.main-card').forEach(card => {
@@ -17,7 +20,7 @@ const addStylesWithSwitchOff = function () {
   if (document.querySelector('.button-start')) document.querySelector('.button-start').classList.remove('none');
 }
 
-const addStylesWithSwitchOn = function () {
+const addStylesWithSwitchOn = () => {
   document.querySelector('.switch-input').checked = true;
   document.querySelector('.menu').classList.add('green');
   document.querySelectorAll('.main-card').forEach(card => {
@@ -36,7 +39,7 @@ const addStylesWithSwitchOn = function () {
   if (document.querySelector('.button-start')) document.querySelector('.button-start').classList.add('none');
 }
 
-const switchEventListener = function () {
+const switchEventListener = () => {
   document.querySelector('.switch').addEventListener('click', () => {
     document.querySelector('.burger-menu').classList.remove('active-burger');
     document.querySelector('.hamburger').classList.remove('active-burger');
@@ -45,12 +48,12 @@ const switchEventListener = function () {
     if (checkBox.checked) {
       checkBox.checked = false;
       addStylesWithSwitchOff();
-      localStorage.removeItem('switch');
-      localStorage.setItem('switch', 'off');
+      localStorage.removeItem(positionSwitch);
+      localStorage.setItem(positionSwitch, 'off');
     }
     else {
-      if (localStorage.getItem('startGame')) {
-        localStorage.removeItem('startGame');
+      if (localStorage.getItem(startGameLS)) {
+        localStorage.removeItem(startGameLS);
         document.querySelectorAll('.front').forEach(front => {
           front.classList.remove('inactive');
         })
@@ -59,8 +62,8 @@ const switchEventListener = function () {
       }
       checkBox.checked = true;
       addStylesWithSwitchOn();
-      localStorage.removeItem('switch');
-      localStorage.setItem('switch', 'on');
+      localStorage.removeItem(positionSwitch);
+      localStorage.setItem(positionSwitch, 'on');
     }
   })
 }

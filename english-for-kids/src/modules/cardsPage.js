@@ -1,3 +1,5 @@
+const statisticsArrLS = 'statisticsArr';
+
 export default class LinkedCards {
   constructor(data) {
     this.data = data
@@ -5,13 +7,13 @@ export default class LinkedCards {
   }
 
   createLinkedField() {
-    const ratingField = LinkedCards.createRatingField();
-    const buttonStart = LinkedCards.createButtonStart();
-    const audio = LinkedCards.createAudio();
-    const soundEffect = LinkedCards.createSoundEffects();
+    const ratingField = this.createRatingField();
+    const buttonStart = this.createButtonStart();
+    const audio = this.createAudio();
+    const soundEffect = this.createSoundEffects();
     this.cardsContainer.append(ratingField);
     this.data.forEach((card) => {
-      const linkedCard = LinkedCards.createLinkedCard(card);
+      const linkedCard = this.createLinkedCard(card);
       this.cardsContainer.append(linkedCard);
     });
     this.cardsContainer.append(buttonStart);
@@ -19,7 +21,7 @@ export default class LinkedCards {
     this.cardsContainer.append(soundEffect);
   }
 
-  static createButtonStart() {
+  createButtonStart() {
     const buttonContainerElement = document.createElement('div');
     buttonContainerElement.className = 'button-container';
     const buttonElement = document.createElement('button');
@@ -29,26 +31,26 @@ export default class LinkedCards {
     return buttonContainerElement;
   }
 
-  static createAudio() {
+  createAudio() {
     const audioElement = document.createElement('audio');
     audioElement.className = 'audio';
     return audioElement;
   }
 
-  static createSoundEffects() {
+  createSoundEffects() {
     const audioElement = document.createElement('audio');
     audioElement.className = 'sound-effect';
     return audioElement;
   }
 
-  static createLinkedCard(cardData) {
+  createLinkedCard(cardData) {
     const cardElement = document.createElement('div');
     cardElement.className = 'card-container';
     cardElement.innerHTML = `<div class="card"> <div class="front" style="background-image: url(${cardData.image})" data-id="${cardData.id}"> <div class="card-header">${cardData.word}</div> </div> <div class="back" style="background-image: url(${cardData.image})"> <div class="card-header">${cardData.translation}</div> </div ><div class="rotate"></div> </div>`;
     return cardElement;
   }
 
-  static createRatingField() {
+  createRatingField() {
     const ratingElement = document.createElement('div');
     ratingElement.classList = 'rating none';
     return ratingElement;
@@ -59,18 +61,17 @@ export default class LinkedCards {
       if (document.querySelector('.switch-input').checked) {
         if (event.target.classList.contains('rotate')) {
           event.target.closest('.card').classList.add('translate');
-          event.target.closest('.card').onmouseleave = function (ev) {
+          event.target.closest('.card').onmouseleave = (ev) => {
             ev.target.closest('.card').classList.remove('translate');
           }
         }
         if (event.target.classList.contains('front') && !event.target.classList.contains('rotate')) {
-          const statisticsArrJSON = JSON.parse(localStorage.getItem('statisticsArr'));
-          statisticsArrJSON.forEach((item) => {
-            const card = item;
+          const statisticsArrJSON = JSON.parse(localStorage.getItem(statisticsArrLS));
+          statisticsArrJSON.forEach((card) => {
             if (card.word === event.target.firstElementChild.innerHTML) {
-              card.train +=1;
-              localStorage.removeItem('statisticsArr');
-              localStorage.setItem('statisticsArr', `${JSON.stringify(statisticsArrJSON)}`)
+              card.train += 1;
+              // localStorage.removeItem(statisticsArrLS);
+              localStorage.setItem(statisticsArrLS, JSON.stringify(statisticsArrJSON))
             }
           })
           this.data.forEach((elem) => {

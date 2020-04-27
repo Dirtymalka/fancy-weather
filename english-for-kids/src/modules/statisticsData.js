@@ -1,22 +1,22 @@
 import cards from './cards';
 
 
-
+const statisticsArrLS = 'statisticsArr';
 const statisticsArrZero = [];
 
-const createStatisticsData = function() {
-  cards.forEach(cat => {
-    const obj = {};
-    obj.category = cat.name;
-    cat.linkedCards.forEach(card => {
-      const clone = Object.defineProperties({}, Object.getOwnPropertyDescriptors(obj));
-      clone.word = card.word;
-      clone.translation = card.translation;
-      clone.train = 0;
-      clone.correct = 0;
-      clone.error = 0;
-      clone.percent = 0;
-      statisticsArrZero.push(clone);
+const createStatisticsData = () => {
+  cards.forEach(mainCard => {
+    mainCard.linkedCards.forEach(linkedCard => {
+      const newCard = {
+        category: mainCard.name,
+        word: linkedCard.word,
+        translation: linkedCard.translation,
+        train: 0,
+        correct: 0,
+        error: 0,
+        percent: 0,
+      }
+      statisticsArrZero.push(newCard);
     });
   });
 }
@@ -26,6 +26,6 @@ createStatisticsData();
 
 export default statisticsArrZero;
 
-if(!localStorage.getItem('statisticsArr') || localStorage.getItem('statisticsArr') === 'null') {
-  localStorage.setItem('statisticsArr', `${JSON.stringify(statisticsArrZero)}`)
-  }
+if (!localStorage.getItem(statisticsArrLS)) {
+  localStorage.setItem(statisticsArrLS, JSON.stringify(statisticsArrZero));
+}

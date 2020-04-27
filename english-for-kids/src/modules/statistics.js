@@ -1,6 +1,7 @@
 import statisticsArrZero from './statisticsData';
-import cards from './cards';
+const positionSwitch = 'switch';
 
+const statisticsArrLS = 'statisticsArr';
 export default class Statistics {
   constructor(statisticsData) {
     this.statisticsData = statisticsData;
@@ -9,48 +10,46 @@ export default class Statistics {
   }
 
   createStatisticsTable(data) {
-    console.log(data);
     let dataCreate;
     if (data) {
       dataCreate = data;
     }
     dataCreate = this.statisticsData;
-    localStorage.removeItem('switch');
-    localStorage.setItem('switch', 'on');
+    localStorage.setItem(positionSwitch, 'on');
     this.statisticsTable.innerHTML = '<caption><span>Statistics</span><button class="reset">Reset</button><button class="repeat-words">Repeat difficult words</button></caption><tr><th rowspan="2" class="title"><span>Category</span><img class="sort" data-name="category" src="./img/sort.svg"></th><th rowspan="2" class="title">Word<img class="sort" data-name="word" src="./img/sort.svg"></th><th rowspan="2" class="title">Translate<img class="sort" data-name="translation" src="./img/sort.svg"></th><th rowspan="2" class="title">Train Mode<img class="sort" data-name="train" src="./img/sort.svg"></th><th colspan="3">Game Mode</th></tr><tr><th class="title">Correct<img class="sort" data-name="correct" src="./img/sort.svg"></th><th class="title">Error<img class="sort" data-name="error" src="./img/sort.svg"></th><th class="title">Percent of Error<img class="sort" data-name="percent" src="./img/sort.svg"></th></tr>';
-    const localStats = JSON.parse(localStorage.getItem('statisticsArr'));
+    const localStats = JSON.parse(localStorage.getItem(statisticsArrLS));
     dataCreate.forEach((card, index) => {
       const row = document.createElement('tr');
       let correct = 0;
       let error = 0;
       const arrOfKeys = Object.keys(card);
 
-      for (let i = 0; i < arrOfKeys.length; i += 1) {
-        if (arrOfKeys[i] === 'correct') {
-          correct = card[arrOfKeys[i]];
+
+      arrOfKeys.forEach((key) => {
+        if (key === 'correct') {
+          correct = card[key];
         }
-        if (arrOfKeys[i] === 'error') {
-          error = card[arrOfKeys[i]];
+        if (key === 'error') {
+          error = card[key];
         }
-        if (arrOfKeys[i] === 'percent') {
+        if (key === 'percent') {
           const tabPercent = document.createElement('td');
           tabPercent.innerHTML = Math.floor(error * 100 / (correct + error)) || '0';
           row.append(tabPercent);
           if (localStats) {
             localStats[index].percent = +(tabPercent.innerHTML);
           }
-          continue;
+          return;
         }
         const tab = document.createElement('td');
-        tab.innerHTML = card[arrOfKeys[i]];
+        tab.innerHTML = card[key];
         row.append(tab);
-      }
+      });
       this.statisticsTable.append(row);
 
     });
     this.statisticsData = localStats;
-    localStorage.removeItem('statisticsArr');
-    localStorage.setItem('statisticsArr', `${JSON.stringify(localStats)}`)
+    localStorage.setItem(statisticsArrLS, JSON.stringify(localStats));
     this.resetTable();
   }
 
@@ -86,8 +85,7 @@ export default class Statistics {
 
         }
         this.statisticsData = sortingTable;
-        localStorage.removeItem('statisticsArr');
-        localStorage.setItem('statisticsArr', `${JSON.stringify(sortingTable)}`)
+        localStorage.setItem(statisticsArrLS, JSON.stringify(sortingTable));
         document.querySelector('.statistics').innerHTML = '';
         this.createStatisticsTable(sortingTable);
         this.resetTable();
@@ -98,10 +96,9 @@ export default class Statistics {
 
   resetTable() {
     document.querySelector('.reset').onclick = () => {
-      localStorage.removeItem('statisticsArr');
       this.statisticsTable.innerHTML = '';
       this.statisticsData = statisticsArrZero;
-      localStorage.setItem('statisticsArr', `${JSON.stringify(statisticsArrZero)}`)
+      localStorage.setItem(statisticsArrLS, JSON.stringify(statisticsArrZero));
       this.createStatisticsTable(statisticsArrZero);
     }
   }
@@ -121,7 +118,7 @@ export default class Statistics {
   }
 
   static sortDifficultWords() {
-    const arrWords = JSON.parse(localStorage.getItem('statisticsArr'));
+    const arrWords = JSON.parse(localStorage.getItem(statisticsArrLS));
     const sortWords = [];
     arrWords.sort((a, b) => b.percent - a.percent).map((item) => item.percent > 0 ? sortWords.push(item) : 0);
     if (sortWords.length > 8) {
@@ -159,18 +156,17 @@ export default class Statistics {
     cardsContainer.addEventListener('click', (event) => {
       if (event.target.classList.contains('rotate')) {
         event.target.closest('.card').classList.add('translate');
-        event.target.closest('.card').onmouseleave = function (ev) {
+        event.target.closest('.card').onmouseleave = (ev) => {
           ev.target.closest('.card').classList.remove('translate');
         }
       }
       if (event.target.classList.contains('front') && !event.target.classList.contains('rotate')) {
-        const statisticsArrJSON = JSON.parse(localStorage.getItem('statisticsArr'));
+        const statisticsArrJSON = JSON.parse(localStorage.getItem(statisticsArrLS));
         statisticsArrJSON.forEach((item) => {
           const card = item;
           if (card.word === event.target.firstElementChild.innerHTML) {
             card.train += 1;
-            localStorage.removeItem('statisticsArr');
-            localStorage.setItem('statisticsArr', `${JSON.stringify(statisticsArrJSON)}`)
+            localStorage.setItem(statisticsArrLS, JSON.stringify(statisticsArrJSON));
           }
         })
         difficultWords.forEach((elem) => {

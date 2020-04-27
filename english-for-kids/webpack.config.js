@@ -5,24 +5,7 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const ENV = process.env.npm_lifecycle_event;
-const isDev = ENV === 'dev';
 const isProd = ENV === 'build';
-
-function setDevTool() {
-  if (isDev) {
-    return 'cheap-module-eval-source-map';
-  } else {
-    return 'none';
-  }
-}
-
-function setDMode() {
-  if (isProd) {
-    return 'production';
-  } else {
-    return 'development';
-  }
-}
 
 const config = {
   target: "web",
@@ -31,8 +14,8 @@ const config = {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].js'
   },
-  mode: setDMode(),
-  devtool: setDevTool(),
+  mode: isProd ? 'production' : 'development',
+  devtool: isProd ? 'none' : 'cheap-module-eval-source-map',
   module: {
     rules: [{
         test: /\.html$/,

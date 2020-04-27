@@ -1,3 +1,6 @@
+const parentIdLS = 'parentId';
+const activeLinkLS = 'activeLink';
+
 export default class MainCards {
   constructor(data) {
     this.data = data;
@@ -6,13 +9,13 @@ export default class MainCards {
 
   createMainField() {
     this.data.forEach((card) => {
-      const mainCard = MainCards.createMainCard(card);
+      const mainCard = this.createMainCard(card);
       mainCard.setAttribute('data-id', card.id);
       this.mainContainer.append(mainCard);
     });
   }
 
-  static createMainCard(cardData) {
+  createMainCard(cardData) {
     const cardElement = document.createElement('a');
     cardElement.className = 'main-card green';
     cardElement.setAttribute('href', './cards.html');
@@ -23,9 +26,8 @@ export default class MainCards {
   addMainCardsContainerClickHandler() {
     this.mainContainer.addEventListener('click', (event) => {
       if (event.target.closest('.main-card')) {
-        localStorage.removeItem('parentId');
-        localStorage.setItem('parentId', `${event.target.closest('.main-card').dataset.id}`);
-        localStorage.setItem('activeLink', `${event.target.closest('.main-card').dataset.id}`);
+        localStorage.setItem(parentIdLS, `${event.target.closest('.main-card').dataset.id}`);
+        localStorage.setItem(activeLinkLS, `${event.target.closest('.main-card').dataset.id}`);
       }
     })
   }
