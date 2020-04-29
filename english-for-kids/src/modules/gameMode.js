@@ -1,12 +1,12 @@
 import cards from './cards';
 
 const startGameLS = 'startGame';
-const statisticsArrLS = 'statisticsArr';
-const parentIdLS = 'parentId';
+const STATISTICS_DATA = 'statistics_data';
+const PARENT_ID = 'parentId';
 const positionSwitch = 'switch';
 
 const arrAudio = [];
-const arrAudioRandom = [];
+let arrAudioRandom = [];
 const arrPlayedAudio = [];
 
 function createCorrectStar() {
@@ -27,9 +27,9 @@ function randomInteger(min, max) {
 }
 
 function createSoundEffects() {
-  arrAudioRandom.length = 0;
+  arrAudioRandom = [];
   cards.forEach(mainCard => {
-    if (mainCard.id === localStorage.getItem(parentIdLS)) {
+    if (mainCard.id === localStorage.getItem(PARENT_ID)) {
       mainCard.linkedCards.forEach(card => {
         arrAudio.push({ id: card.id, audio: card.audioSrc });
       });
@@ -71,11 +71,11 @@ const addCardsGameModeHandler = (ev) => {
     if (ev.target.classList.contains('front') && !ev.target.classList.contains('inactive')) {
       if (arrPlayedAudio[arrPlayedAudio.length - 1].id === ev.target.dataset.id) {
 
-        const statisticsArrJSON = JSON.parse(localStorage.getItem(statisticsArrLS));
+        const statisticsArrJSON = JSON.parse(localStorage.getItem(STATISTICS_DATA));
         statisticsArrJSON.forEach((card) => {
           if (card.word === ev.target.firstElementChild.innerHTML) {
             card.correct += 1;
-            localStorage.setItem(statisticsArrLS, JSON.stringify(statisticsArrJSON));
+            localStorage.setItem(STATISTICS_DATA, JSON.stringify(statisticsArrJSON));
           }
         })
 
@@ -115,11 +115,11 @@ const addCardsGameModeHandler = (ev) => {
         return;
       }
 
-      const statisticsArrJSON = JSON.parse(localStorage.getItem(statisticsArrLS));
+      const statisticsArrJSON = JSON.parse(localStorage.getItem(STATISTICS_DATA));
       statisticsArrJSON.forEach((card) => {
         if (card.word === ev.target.firstElementChild.innerHTML) {
           card.error += 1;
-          localStorage.setItem(statisticsArrLS, JSON.stringify(statisticsArrJSON));
+          localStorage.setItem(STATISTICS_DATA, JSON.stringify(statisticsArrJSON));
         }
       })
 

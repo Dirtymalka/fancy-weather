@@ -1,4 +1,4 @@
-const parentIdLS = 'parentId';
+const PARENT_ID = 'parentId';
 const activeLinkLS = 'activeLink';
 
 export default class MainCards {
@@ -26,7 +26,7 @@ export default class MainCards {
   addMainCardsContainerClickHandler() {
     this.mainContainer.addEventListener('click', (event) => {
       if (event.target.closest('.main-card')) {
-        localStorage.setItem(parentIdLS, `${event.target.closest('.main-card').dataset.id}`);
+        localStorage.setItem(PARENT_ID, `${event.target.closest('.main-card').dataset.id}`);
         localStorage.setItem(activeLinkLS, `${event.target.closest('.main-card').dataset.id}`);
       }
     })

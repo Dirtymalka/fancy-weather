@@ -1,7 +1,7 @@
 import cards from './cards';
 
 
-const statisticsArrLS = 'statisticsArr';
+const STATISTICS_DATA = 'statistics_data';
 const statisticsArrZero = [];
 
 const createStatisticsData = () => {
@@ -26,6 +26,6 @@ createStatisticsData();
 
 export default statisticsArrZero;
 
-if (!localStorage.getItem(statisticsArrLS)) {
-  localStorage.setItem(statisticsArrLS, JSON.stringify(statisticsArrZero));
+if (!localStorage.getItem(STATISTICS_DATA)) {
+  localStorage.setItem(STATISTICS_DATA, JSON.stringify(statisticsArrZero));
 }

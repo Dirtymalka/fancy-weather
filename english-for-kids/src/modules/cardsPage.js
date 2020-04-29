@@ -1,4 +1,4 @@
-const statisticsArrLS = 'statisticsArr';
+const STATISTICS_DATA = 'statistics_data';
 
 export default class LinkedCards {
   constructor(data) {
@@ -66,12 +66,11 @@ export default class LinkedCards {
           }
         }
         if (event.target.classList.contains('front') && !event.target.classList.contains('rotate')) {
-          const statisticsArrJSON = JSON.parse(localStorage.getItem(statisticsArrLS));
+          const statisticsArrJSON = JSON.parse(localStorage.getItem(STATISTICS_DATA));
           statisticsArrJSON.forEach((card) => {
             if (card.word === event.target.firstElementChild.innerHTML) {
               card.train += 1;
-              // localStorage.removeItem(statisticsArrLS);
-              localStorage.setItem(statisticsArrLS, JSON.stringify(statisticsArrJSON))
+              localStorage.setItem(STATISTICS_DATA, JSON.stringify(statisticsArrJSON))
             }
           })
           this.data.forEach((elem) => {

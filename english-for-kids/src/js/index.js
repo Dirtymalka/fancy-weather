@@ -9,8 +9,8 @@ import Statistics from '../modules/statistics';
 import { followLinksMenu, removeActiveToLink } from '../modules/links';
 import { addCardsGameModeHandler, addButtonStartHandler } from '../modules/gameMode';
 
-const statisticsArrLS = 'statisticsArr';
-const parentIdLS = 'parentId';
+const STATISTICS_DATA = 'statistics_data';
+const PARENT_ID = 'parentId';
 const activeLinkLS = 'activeLink';
 const positionSwitch = 'switch';
 
@@ -20,8 +20,8 @@ window.onload = () => {
   const appContainerId = appContainer.getAttribute('id');
   let statisticsArr = [];
 
-  if (localStorage.getItem(statisticsArrLS)) {
-    statisticsArr = JSON.parse(localStorage.getItem(statisticsArrLS));
+  if (localStorage.getItem(STATISTICS_DATA)) {
+    statisticsArr = JSON.parse(localStorage.getItem(STATISTICS_DATA));
   } else {
     statisticsArr = statisticsArrZero.slice();
   }
@@ -41,10 +41,10 @@ window.onload = () => {
   }
 
   if (appContainerId === 'cards') {
-    if (!localStorage.getItem(parentIdLS)) {
-      localStorage.setItem(parentIdLS, '1');
+    if (!localStorage.getItem(PARENT_ID)) {
+      localStorage.setItem(PARENT_ID, '1');
     }
-    const linkedPage = new LinkedCards(cards[(+localStorage.getItem(parentIdLS) - 1)].linkedCards);
+    const linkedPage = new LinkedCards(cards[(+localStorage.getItem(PARENT_ID) - 1)].linkedCards);
     linkedPage.createLinkedField();
     linkedPage.addCardsContainerClickHandler();
     removeActiveToLink();

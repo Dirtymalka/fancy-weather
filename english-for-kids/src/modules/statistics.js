@@ -1,7 +1,8 @@
 import statisticsArrZero from './statisticsData';
+
 const positionSwitch = 'switch';
 
-const statisticsArrLS = 'statisticsArr';
+const STATISTICS_DATA = 'statistics_data';
 export default class Statistics {
   constructor(statisticsData) {
     this.statisticsData = statisticsData;
@@ -9,16 +10,12 @@ export default class Statistics {
     this.cardsContainer = document.querySelector('.cards-container');
   }
 
-  createStatisticsTable(data) {
-    let dataCreate;
-    if (data) {
-      dataCreate = data;
-    }
-    dataCreate = this.statisticsData;
+  createStatisticsTable() {
+    const newStatisticsData = this.statisticsData;
     localStorage.setItem(positionSwitch, 'on');
     this.statisticsTable.innerHTML = '<caption><span>Statistics</span><button class="reset">Reset</button><button class="repeat-words">Repeat difficult words</button></caption><tr><th rowspan="2" class="title"><span>Category</span><img class="sort" data-name="category" src="./img/sort.svg"></th><th rowspan="2" class="title">Word<img class="sort" data-name="word" src="./img/sort.svg"></th><th rowspan="2" class="title">Translate<img class="sort" data-name="translation" src="./img/sort.svg"></th><th rowspan="2" class="title">Train Mode<img class="sort" data-name="train" src="./img/sort.svg"></th><th colspan="3">Game Mode</th></tr><tr><th class="title">Correct<img class="sort" data-name="correct" src="./img/sort.svg"></th><th class="title">Error<img class="sort" data-name="error" src="./img/sort.svg"></th><th class="title">Percent of Error<img class="sort" data-name="percent" src="./img/sort.svg"></th></tr>';
-    const localStats = JSON.parse(localStorage.getItem(statisticsArrLS));
-    dataCreate.forEach((card, index) => {
+    const statistics = JSON.parse(localStorage.getItem(STATISTICS_DATA));
+    newStatisticsData.forEach((card, index) => {
       const row = document.createElement('tr');
       let correct = 0;
       let error = 0;
@@ -36,8 +33,8 @@ export default class Statistics {
           const tabPercent = document.createElement('td');
           tabPercent.innerHTML = Math.floor(error * 100 / (correct + error)) || '0';
           row.append(tabPercent);
-          if (localStats) {
-            localStats[index].percent = +(tabPercent.innerHTML);
+          if (statistics) {
+            statistics[index].percent = +(tabPercent.innerHTML);
           }
           return;
         }
@@ -48,8 +45,8 @@ export default class Statistics {
       this.statisticsTable.append(row);
 
     });
-    this.statisticsData = localStats;
-    localStorage.setItem(statisticsArrLS, JSON.stringify(localStats));
+    this.statisticsData = statistics;
+    localStorage.setItem(STATISTICS_DATA, JSON.stringify(statistics));
     this.resetTable();
   }
 
@@ -85,7 +82,7 @@ export default class Statistics {
 
         }
         this.statisticsData = sortingTable;
-        localStorage.setItem(statisticsArrLS, JSON.stringify(sortingTable));
+        localStorage.setItem(STATISTICS_DATA, JSON.stringify(sortingTable));
         document.querySelector('.statistics').innerHTML = '';
         this.createStatisticsTable(sortingTable);
         this.resetTable();
@@ -98,7 +95,7 @@ export default class Statistics {
     document.querySelector('.reset').onclick = () => {
       this.statisticsTable.innerHTML = '';
       this.statisticsData = statisticsArrZero;
-      localStorage.setItem(statisticsArrLS, JSON.stringify(statisticsArrZero));
+      localStorage.setItem(STATISTICS_DATA, JSON.stringify(statisticsArrZero));
       this.createStatisticsTable(statisticsArrZero);
     }
   }
@@ -118,9 +115,9 @@ export default class Statistics {
   }
 
   static sortDifficultWords() {
-    const arrWords = JSON.parse(localStorage.getItem(statisticsArrLS));
+    const words = JSON.parse(localStorage.getItem(STATISTICS_DATA));
     const sortWords = [];
-    arrWords.sort((a, b) => b.percent - a.percent).map((item) => item.percent > 0 ? sortWords.push(item) : 0);
+    words.sort((a, b) => b.percent - a.percent).map((item) => item.percent > 0 ? sortWords.push(item) : 0);
     if (sortWords.length > 8) {
       sortWords.length = 8;
     }
@@ -161,12 +158,12 @@ export default class Statistics {
         }
       }
       if (event.target.classList.contains('front') && !event.target.classList.contains('rotate')) {
-        const statisticsArrJSON = JSON.parse(localStorage.getItem(statisticsArrLS));
+        const statisticsArrJSON = JSON.parse(localStorage.getItem(STATISTICS_DATA));
         statisticsArrJSON.forEach((item) => {
           const card = item;
           if (card.word === event.target.firstElementChild.innerHTML) {
             card.train += 1;
-            localStorage.setItem(statisticsArrLS, JSON.stringify(statisticsArrJSON));
+            localStorage.setItem(STATISTICS_DATA, JSON.stringify(statisticsArrJSON));
           }
         })
         difficultWords.forEach((elem) => {
