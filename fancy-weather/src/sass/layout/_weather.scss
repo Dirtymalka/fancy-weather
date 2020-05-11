@@ -1,0 +1,52 @@
+.weather__data {
+  display: grid;
+  grid-template-columns: repeat(3, 20rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  .weather__data_location {
+    grid-column: 1/4;
+    font-size: 4.4rem;
+  }
+  .weather__data_data-time {
+    grid-column: 1/4;
+    font-size: 2.2rem;
+    margin-top: 1rem;
+    text-transform: capitalize;
+    font-weight: 400;
+  }
+  .weather__data_temperature-today {
+    grid-column: 1/3;
+    grid-row: 3/5;
+    text-align: center;
+    font-size: 30rem;
+  }
+  .weather__data_weather-icon {
+    width: 17rem;
+    height: 17rem;
+  }
+  .weather__data_weather-info {
+    transform: translateY(-20%);
+    p {
+      margin-bottom: 1rem;
+      font-size: 2.2rem;
+    }
+  }
+}
+
+.feature-day {
+  display: grid;
+  margin-right: 5rem;
+  .feature-day_day {
+    grid-column: 1/3;
+    font-size: 2.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  .feature-temperature {
+    font-size: 8rem;
+  }
+  .feature-day_icon {
+    width: 6.7rem;
+    height: 6.7rem;
+  }
+}
