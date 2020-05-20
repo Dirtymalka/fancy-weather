@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fancy Weather</title>
     <link rel="stylesheet" href="./css/style.css">
-    <!-- <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=9a61be5f-61ac-46cf-ba19-54678ca5600f" type="text/javascript"></script>
-    <script src="https://yandex.st/jquery/2.2.3/jquery.min.js" type="text/javascript"></script>
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=9a61be5f-61ac-46cf-ba19-54678ca5600f" type="text/javascript"></script>
+    <!-- <script src="https://yandex.st/jquery/2.2.3/jquery.min.js" type="text/javascript"></script>
     <script src="geolocated_map.js" type="text/javascript"></script> -->
     <!-- <script src="https://api.mapbox.com/mapbox-gl-js/v1.10.0/mapbox-gl.js"></script>
     <link href="https://api.mapbox.com/mapbox-gl-js/v1.10.0/mapbox-gl.css" rel="stylesheet" /> -->
@@ -45,16 +45,17 @@
             <div class="weather-container">
                 <div class="weather__data">
                     <div class="weather__data_location">Belarus</div>
-                    <div class="weather__data_data-time"> <span class="date">Monday 11 may</span><span class="time"></span></div>
-                    <div class="weather__data_temperature-today">10</div>
+                    <div class="weather__data_data-time"> <span class="date"></span><span class="time"></span></div>
+                    <div class="weather__data_temperature-today"><span>°</span></div>
                     <img src="./img/t.svg" alt="" class="weather__data_weather-icon">
                     <div class="weather__data_weather-info">
-                        <p>Possible Light Rain</p>
+                        <!-- <p>Possible Light Rain</p>
                         <p>Feels Like: 6°</p>
                         <p>Wind: 6 m/s</p>
-                        <p>Humidity: 86%</p>
+                        <p>Humidity: 86%</p> -->
                     </div>
-                    <div class="feature-day">
+                    <div class="weather_three-days"></div>
+                    <!-- <div class="feature-day">
                         <p class="feature-day_day">wensday</p>
                         <p class="feature-temperature">9</p>
                         <img src="./img/t.svg" alt="" class="feature-day_icon">
@@ -68,9 +69,9 @@
                         <p class="feature-day_day">wensday</p>
                         <p class="feature-temperature">4</p>
                         <img src="./img/t.svg" alt="" class="feature-day_icon">
-                    </div>
+                    </div> -->
                 </div>
-                <div class="weather_three-days"></div>
+                <!-- <div class="weather_three-days"></div> -->
             </div>
             <div class="map-block">
                 <div id="map" style="width: 600px; height: 400px"></div>

@@ -22,7 +22,6 @@
   }
   .weather__data_weather-icon {
     width: 17rem;
-    height: 17rem;
   }
   .weather__data_weather-info {
     transform: translateY(-20%);
@@ -31,6 +30,11 @@
       font-size: 2.2rem;
     }
   }
+}
+
+.weather_three-days {
+  display: grid;
+  grid-template-columns: repeat(3, 20rem);
 }
 
 .feature-day {
@@ -47,6 +51,5 @@
   }
   .feature-day_icon {
     width: 6.7rem;
-    height: 6.7rem;
   }
 }

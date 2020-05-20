@@ -6,13 +6,9 @@ const getDateNow = () => {
   const dataDays = daysOfWeekEn;
   const dataMonths = monthsEn;
   const dayOfWeak = dataDays[dateNow.getDay()];
-  const month = dataMonths[dateNow.getMonth()]
-
-
-  // const dateInfo = {
-  //   month:
-  // }
-  console.log(dateNow);
+  const month = dataMonths[dateNow.getMonth()];
+  const day = dateNow.getDate();
+  document.querySelector('.date').innerHTML = `${dayOfWeak} ${day} ${month} `;
 }
 
 
