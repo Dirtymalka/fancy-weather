@@ -1,11 +1,12 @@
 .weather__data {
   display: grid;
-  grid-template-columns: repeat(3, 20rem);
+  grid-template-columns: repeat(3, 22rem);
   font-weight: 700;
   text-transform: uppercase;
   .weather__data_location {
     grid-column: 1/4;
     font-size: 4.4rem;
+    background-color: rgba(0,0,0,.5);
   }
   .weather__data_data-time {
     grid-column: 1/4;
@@ -19,12 +20,14 @@
     grid-row: 3/5;
     text-align: center;
     font-size: 30rem;
+    background-color: rgba(0,0,0,.5);
   }
   .weather__data_weather-icon {
     width: 17rem;
   }
   .weather__data_weather-info {
     transform: translateY(-20%);
+    background-color: rgba(0,0,0,.5);
     p {
       margin-bottom: 1rem;
       font-size: 2.2rem;
@@ -35,8 +38,9 @@
 .weather_three-days {
   display: grid;
   grid-template-columns: repeat(3, 20rem);
+  margin-top: 50px;
+  margin-left: 52px;
 }
-
 .feature-day {
   display: grid;
   margin-right: 5rem;

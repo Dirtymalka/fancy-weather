@@ -37,14 +37,14 @@
                     <button class="button-voice button">
                         <img src="./img/micro.svg" alt="">
                     </button>
-                    <button class="header__search-button button" id="search-button">Search</button>
+                    <button class="header__search-button button" id="search-button" type="submit">Search</button>
                 </form>
             </div>
         </header>
         <main>
             <div class="weather-container">
                 <div class="weather__data">
-                    <div class="weather__data_location">Belarus</div>
+                    <div class="weather__data_location"></div>
                     <div class="weather__data_data-time"> <span class="date"></span><span class="time"></span></div>
                     <div class="weather__data_temperature-today"><span>°</span></div>
                     <img src="./img/t.svg" alt="" class="weather__data_weather-icon">
@@ -75,6 +75,7 @@
             </div>
             <div class="map-block">
                 <div id="map" style="width: 600px; height: 400px"></div>
+                <div class="coordinates"></div>
             </div>
         </main>
     </div>

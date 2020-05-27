@@ -6,8 +6,9 @@ import * as constants from '../modules/constants';
 import { getWeatherOnThreeDays, getWeatherToday } from '../modules/weather';
 import { getDateNow, time } from '../modules/date';
 
-import { addMapWithGeolocation, getGeoPosition, searchButtonHandler, createMap } from '../modules/map';
+import { addMapWithGeolocation, getGeoPosition, getContent, createMap } from '../modules/map';
 
+import { getBackgroundImage } from '../modules/background';
 // const render = async () => {
 //   const coord = await getGeoPosition();
 //   console.log(coord.latitude, coord.longitude)
@@ -15,13 +16,16 @@ import { addMapWithGeolocation, getGeoPosition, searchButtonHandler, createMap }
 //   createMap(coord.latitude, coord.longitude);
 // }
 // render();
-getGeoPosition();
-
+// const f = getGeoPosition();
+// console.log(f);
+// searchButtonHandler();
 // createMap();
 
 // console.log(2);
+getGeoPosition();
+// getContent();
 
-
+getBackgroundImage('минск');
 
 getDateNow();
 
@@ -32,7 +36,10 @@ setInterval(time, 1000);
 // ymaps.ready(addMapWithGeolocation);
 // getGeoPosition();
 
-constants.SEARCH_BUTTON.onclick = searchButtonHandler;
+constants.SEARCH_BUTTON.onclick = (ev) => {
+  ev.preventDefault();
+  getGeoPosition();
+};
   // event.preventDefault();
   // // const url = 'https://ipinfo.io/json?token=eb5b90bb77d46a';
   // // const request = await fetch(url);

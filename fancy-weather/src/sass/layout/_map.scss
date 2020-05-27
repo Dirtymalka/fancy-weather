@@ -1,10 +1,33 @@
-.ymaps-2-1-76-inner-panes::after {
-    content: '';
-   position: absolute;
-   top: 0;
-   left: 0;
-   width: 728px;
-   height: 579px;
-   background: url(../../img/Rectangle.png) 0 0 no-repeat;
-   z-index: 1000;
+.map-block {
+  flex: 0 1 39%;
+  min-height: 450px;
+  margin: 5px;
+  padding: 20px;
+  border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0.5);
 }
+
+.coordinates {
+  margin: 10px 0 0;
+  font-weight: 400;
+  text-align: right;
+  text-transform: none;
+  font-size: 2rem;
+}
+
+#map {
+  clip-path: polygon(0% 0%, 100% 0%, 100% 92%, 80% 92%, 80% 100%, 68% 92%, 0px 91%);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+// .ymaps-2-1-76-inner-panes::after {
+//   content: "";
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   width: 728px;
+//   height: 579px;
+//   background: url(../../img/Rectangle.png) 0 0 no-repeat;
+//   z-index: 1000;
+// }

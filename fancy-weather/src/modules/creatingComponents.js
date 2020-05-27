@@ -1,5 +1,10 @@
 import { WEEK_DAYS } from './constants';
 
+const createTitle = (country) => {
+  const container = document.querySelector('.weather__data_location');
+  container.textContent = country;
+}
+
 const createWeatherTodayContent = (data) => {
   const container = document.querySelector('.weather__data_weather-info');
   container.innerHTML = '';
@@ -38,5 +43,25 @@ const createWeatherFeatureContent = (data) => {
   });
 }
 
+const createCoordinates = (latitude, longitude) => {
+  const containerMap = document.querySelector('.coordinates');
+  containerMap.innerHTML = '';
+  const newLatitude = latitude.toString().split(".")[0];
+  const newlongitude = longitude.toString().split(".")[0];
+  const minutesOfLatitude = getMinutesFromDegree(latitude);
+  const minutesOfLongitude = getMinutesFromDegree(longitude);
+  const content = `
+  <div class="map-block_latitude coordinates">latitude: ${newLatitude}° ${minutesOfLatitude}'</div>
+  <div class="map-block_longitude coordinates">longitude: ${newlongitude}° ${minutesOfLongitude}'</div>`;
+  containerMap.insertAdjacentHTML('beforeend', content);
+}
 
-export { createWeatherTodayContent, createWeatherFeatureContent };
+const getMinutesFromDegree = (number) => {
+  const degree = number.toString().split(".")[1].substr(0,3);
+  const fractionalDegree = parseFloat(`0.${degree}`);
+  const minutes = fractionalDegree * 60;
+  return minutes.toString().split(".")[0];
+}
+
+
+export { createWeatherTodayContent, createWeatherFeatureContent, createCoordinates, createTitle };
