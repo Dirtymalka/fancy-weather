@@ -14,7 +14,7 @@ const getGeoPosition = () => {
   const position = {};
   navigator.geolocation.getCurrentPosition(async (pos) => {
     const crd = await pos.coords;
-    console.log(pos);
+    // console.log(pos);
     position.latitude = crd.latitude;
     position.longitude = crd.longitude;
     getContent(position);
@@ -60,22 +60,22 @@ const getContent = async (position) => {
   // }
   const mainPath = 'https://geocode-maps.yandex.ru/1.x';
   const APIKey = '?apikey=9a61be5f-61ac-46cf-ba19-54678ca5600f&';
-  const language = 'lang=ru_RU&';
+  const language = 'lang=en_RU&';
   let geocode;
   // const position = await getGeoPosition();
   if (!SEARCH_INPUT.value) {
-    console.log(position)
+    // console.log(position)
     geocode = `geocode=${position.longitude},${position.latitude}`;
   } else {
     geocode = `geocode=${SEARCH_INPUT.value}`;
   }
   const url = mainPath + APIKey + language + geocode;
-  console.log(url);
+  // console.log(url);
 
   const request = await fetch(url);
   const response = await request.text();
   const str = await (new window.DOMParser()).parseFromString(response, "text/xml");
-  console.log(str)
+  // console.log(str)
 
   const searchLatitude = +str.querySelector('pos').textContent.split(' ')[1];
   const searchLongitude = +str.querySelector('pos').textContent.split(' ')[0];

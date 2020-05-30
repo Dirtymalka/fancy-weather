@@ -7,6 +7,14 @@ export const MAP_CONTAINER = document.getElementById('map');
 
 export const API_WEATHER_KEY = 'bd18eb5d9883327da9b00a8abeca4190';
 
+export const TEMPERATURE_UNIT_NAME = 'temperatureName';
+export const TEMPERATURE_UNIT_CELSIUS = 'celsius';
+export const TEMPERATURE_UNIT_FAHRENHEIT = 'fahrenheit';
+
+export const monthIndex = 'monthIndex';
+export const dayIndex = 'dayIndex';
+
+
 export const daysOfWeekEn = {
   '0': 'Sun',
   '1': 'Mon',
@@ -18,23 +26,23 @@ export const daysOfWeekEn = {
 }
 
 export const daysOfWeekRu = {
-  '0': 'Пн',
-  '1': 'Вт',
-  '2': 'Ср',
-  '3': 'Чт',
-  '4': 'Пт',
-  '5': 'Сб',
-  '6': 'Вс',
+  '0': 'Вс',
+  '1': 'Пн',
+  '2': 'Вт',
+  '3': 'Ср',
+  '4': 'Чт',
+  '5': 'Пт',
+  '6': 'Сб',
 }
 
 export const daysOfWeekBe = {
-  '0': 'Пн',
-  '1': 'Аў',
-  '2': 'Ср',
-  '3': 'Чц',
-  '4': 'Пт',
-  '5': 'Сб',
-  '6': 'Нд',
+  '0': 'Нд',
+  '1': 'Пн',
+  '2': 'Аў',
+  '3': 'Ср',
+  '4': 'Чц',
+  '5': 'Пт',
+  '6': 'Сб',
 }
 
 export const monthsEn = {

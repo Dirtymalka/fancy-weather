@@ -39,15 +39,26 @@
   outline: 0;
   padding: 5px 10px;
   border-radius: 5px;
-  background: rgba(174, 181, 185, 0.5);
+  background: rgba(76,82,85,.7);
 }
 
 button:hover {
-  background: rgba(76, 82, 85, 0.4);
+  background-color: #b4b8bb;
+  color: #fff;
+}
+
+.button.active {
+  background: rgba(180,184,187,.7);
+  cursor: auto;
 }
 
 .buttons-language {
   display: flex;
+}
+
+.language-button.active {
+  background: rgba(180,184,187,.7);
+  cursor: auto;
 }
 
 .buttons-temperature-container {

@@ -1,14 +1,22 @@
-import { daysOfWeekEn, daysOfWeekRu, daysOfWeekBe, monthsEn, monthsRu, monthsBe } from './constants';
+import { daysOfWeekEn, daysOfWeekRu, daysOfWeekBe, monthsEn, monthsRu, monthsBe, monthIndex, dayIndex } from './constants';
+import { createDate } from './creatingComponents';
 
 
 const getDateNow = () => {
   const dateNow = new Date();
-  const dataDays = daysOfWeekEn;
-  const dataMonths = monthsEn;
-  const dayOfWeak = dataDays[dateNow.getDay()];
-  const month = dataMonths[dateNow.getMonth()];
+  // const dataDays = daysOfWeekEn;
+  // const dataMonths = monthsEn;
+  const GetMonthIndex = dateNow.getMonth();
+  localStorage.setItem(monthIndex, GetMonthIndex);
+
+  const GetDayIndex = dateNow.getDay();
+  localStorage.setItem(dayIndex, GetDayIndex);
+
+  const dayOfWeak = daysOfWeekEn[dateNow.getDay()];
+  const month = monthsEn[dateNow.getMonth()];
   const day = dateNow.getDate();
-  document.querySelector('.date').innerHTML = `${dayOfWeak} ${day} ${month} `;
+  createDate(dayOfWeak, day, month);
+  // document.querySelector('.date').innerHTML = `${dayOfWeak} ${day} ${month} `;
 }
 
 

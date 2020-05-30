@@ -9,6 +9,7 @@ const getWeatherOnThreeDays = async (latitude, longitude) => {
   const optionsAndLanguage = '&days=4&units=M&lang=en';
   const keyAPI = '&key=59faf9d6712e43829d6b1b0619e0c4d2';
   const url = main + coordinates + optionsAndLanguage + keyAPI;
+
   const response = await fetch(url);
   const data = await response.json();
   // console.log(data.data);
@@ -38,9 +39,14 @@ const getWeatherToday = async (latitude, longitude) => {
   const optionsAndLanguage = '&units=M&lang=en';
   const keyAPI = '&key=59faf9d6712e43829d6b1b0619e0c4d2';
   const url = main + coordinates + optionsAndLanguage + keyAPI;
+
   const response = await fetch(url);
   const data = await response.json();
-  // console.log(data);
+  // const date = data.data[0].ob_time.split(' ')[0];
+  // const time = data.data[0].ob_time.split(' ')[1];
+  // console.log(data)
+  // console.log(new Date(Date.parse(`${date}T${time}`)));
+  // console.log(new Date(1590696230));
   const infoData = await getInfoWeatherToday(data.data[0]);
   createWeatherTodayContent(infoData);
 
