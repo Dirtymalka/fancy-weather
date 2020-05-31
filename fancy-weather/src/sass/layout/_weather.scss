@@ -1,12 +1,32 @@
+.weather-container {
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+  width: 720px;
+  @media (max-width: 1420px) {
+    margin-bottom: 30px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+}
+
 .weather__data {
   display: grid;
   grid-template-columns: repeat(3, 22rem);
   font-weight: 700;
   text-transform: uppercase;
+  // background-color: rgba(0,0,0,.5);
+  // border-radius: 5px;
+  padding: 15px;
+  @media (max-width: 760px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
   .weather__data_location {
     grid-column: 1/4;
     font-size: 4.4rem;
-    background-color: rgba(0,0,0,.5);
+    @media (max-width: 760px) {
+      text-align: center;
+    }
   }
   .weather__data_data-time {
     grid-column: 1/4;
@@ -14,23 +34,47 @@
     margin-top: 1rem;
     text-transform: capitalize;
     font-weight: 400;
+    .date {
+      padding-right: 10px;
+    }
+    @media (max-width: 760px) {
+      text-align: center;
+    }
   }
   .weather__data_temperature-today {
     grid-column: 1/3;
     grid-row: 3/5;
     text-align: center;
     font-size: 30rem;
-    background-color: rgba(0,0,0,.5);
+    @media (max-width: 760px) {
+      grid-column: 1/4;
+    }
+    @media (max-width: 450px) {
+      font-size: 20rem;
+    }
   }
   .weather__data_weather-icon {
     width: 17rem;
+    img {
+      @media (max-width: 760px) {
+        width: 215px;
+      }
+    }
+    @media (max-width: 760px) {
+      grid-column: 1/4;
+      text-align: center;
+      width: 100%;
+    }
   }
   .weather__data_weather-info {
-    transform: translateY(-20%);
-    background-color: rgba(0,0,0,.5);
+    // transform: translateY(-20%);
     p {
       margin-bottom: 1rem;
       font-size: 2.2rem;
+    }
+    @media (max-width: 760px) {
+      grid-column: 1/4;
+      text-align: center;
     }
   }
 }
@@ -40,10 +84,21 @@
   grid-template-columns: repeat(3, 20rem);
   margin-top: 50px;
   margin-left: 52px;
+  @media (max-width: 760px) {
+    grid-column: 1/4;
+    grid-template-columns: repeat(3, 1fr);
+    text-align: center;
+  }
 }
 .feature-day {
   display: grid;
   margin-right: 5rem;
+  @media (max-width: 760px) {
+    grid-column: 1/4;
+    text-align: center;
+    padding-top: 30px;
+    border-top: 3px solid rgba(27, 26, 26, 0.411);
+  }
   .feature-day_day {
     grid-column: 1/3;
     font-size: 2.2rem;
@@ -52,6 +107,9 @@
   }
   .feature-temperature {
     font-size: 8rem;
+    @media (max-width: 760px) {
+      text-align: end;
+    }
   }
   .feature-day_icon {
     width: 6.7rem;

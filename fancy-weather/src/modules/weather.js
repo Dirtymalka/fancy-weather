@@ -1,12 +1,14 @@
-import { API_WEATHER_KEY } from './constants';
+import { KEY_LANGUAGE, WEATHER_CODE } from './constants';
 import { createWeatherTodayContent, createWeatherFeatureContent } from './creatingComponents';
 
 const getWeatherOnThreeDays = async (latitude, longitude) => {
   console.log(latitude, longitude);
+  const language = localStorage.getItem(KEY_LANGUAGE);
+
   // const url = `https://api.weatherbit.io/v2.0/forecast/daily?&lat=${latitude}&lon=${longitude}&days=4&units=M&lang=ru&key=619b6dd131094859b162bb2577321b2a`;
   const main = 'https://api.weatherbit.io/v2.0/forecast/daily?';
   const coordinates = `&lat=${latitude}&lon=${longitude}`
-  const optionsAndLanguage = '&days=4&units=M&lang=en';
+  const optionsAndLanguage = `&days=4&units=M&lang=${language}`;
   const keyAPI = '&key=59faf9d6712e43829d6b1b0619e0c4d2';
   const url = main + coordinates + optionsAndLanguage + keyAPI;
 
@@ -23,7 +25,8 @@ const getInfoWeatherOnThreeDays = (data) => {
   const dataInfo = [];
   newData.forEach(day => {
     const dayInfo = {
-      temperature: Math.round(day.temp)
+      temperature: Math.round(day.temp),
+      icon: day.weather.icon
     };
     dataInfo.push(dayInfo);
   });
@@ -33,10 +36,12 @@ const getInfoWeatherOnThreeDays = (data) => {
 
 const getWeatherToday = async (latitude, longitude) => {
   console.log(latitude, longitude);
+  const language = localStorage.getItem(KEY_LANGUAGE);
+
   // const url = `https://api.weatherbit.io/v2.0/current?&lat=${latitude}&lon=${longitude}&units=M&lang=en&key=619b6dd131094859b162bb2577321b2a`;
   const main = 'https://api.weatherbit.io/v2.0/current?';
   const coordinates = `&lat=${latitude}&lon=${longitude}`
-  const optionsAndLanguage = '&units=M&lang=en';
+  const optionsAndLanguage = `&units=M&lang=${language}`;
   const keyAPI = '&key=59faf9d6712e43829d6b1b0619e0c4d2';
   const url = main + coordinates + optionsAndLanguage + keyAPI;
 
@@ -44,7 +49,7 @@ const getWeatherToday = async (latitude, longitude) => {
   const data = await response.json();
   // const date = data.data[0].ob_time.split(' ')[0];
   // const time = data.data[0].ob_time.split(' ')[1];
-  // console.log(data)
+  console.log(data)
   // console.log(new Date(Date.parse(`${date}T${time}`)));
   // console.log(new Date(1590696230));
   const infoData = await getInfoWeatherToday(data.data[0]);
@@ -53,12 +58,14 @@ const getWeatherToday = async (latitude, longitude) => {
 }
 
 const getInfoWeatherToday = (data) => {
+  localStorage.setItem(WEATHER_CODE, data.weather.code);
   const info = {
     temperature: Math.round(data.temp),
     feelsTemperature: Math.round(data.app_temp),
     wind: Math.round(data.wind_spd),
     humidity: data.rh,
     description: data.weather.description,
+    icon: data.weather.icon,
   };
   return info;
 }

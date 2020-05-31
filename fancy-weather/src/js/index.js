@@ -2,22 +2,20 @@ import '../css/style.css';
 import '../css/style.scss';
 
 
-import * as constants from '../modules/constants';
-import { getWeatherOnThreeDays, getWeatherToday } from '../modules/weather';
+import { KEY_LANGUAGE, DEFAULT_LANGUAGE } from '../modules/constants';
 import { getDateNow, time } from '../modules/date';
 
-import { addMapWithGeolocation, getGeoPosition, getContent, createMap } from '../modules/map';
+import { getGeoPosition } from '../modules/map';
 
 import { getBackgroundImage } from '../modules/background';
 
 import { changeTemperatureUnits } from '../modules/changeOfUnits';
 
-import { changeLanguage } from '../modules/changingLang';
+import { changeLanguage, chooseActiveLanguage } from '../modules/changingLang';
 
+import { addMicrophoneHandler, recognition, addSpeakHandler } from '../modules/speack-search';
 
 getGeoPosition();
-
-// getBackgroundImage('минск');
 
 getDateNow();
 
@@ -29,8 +27,17 @@ document.querySelector('.search-form').onsubmit = (ev) => {
   getGeoPosition();
 };
 
+document.querySelector('.button-voice').onclick = addMicrophoneHandler;
+recognition.onresult = addSpeakHandler;
+
+chooseActiveLanguage();
+
 document.querySelector('.buttons-temperature-container').onclick = changeTemperatureUnits;
 
 document.querySelector('.button_bg').onclick = () => getBackgroundImage();
 
 document.querySelector('.buttons-language').onclick = changeLanguage;
+
+if (!localStorage.getItem(KEY_LANGUAGE)) {
+  localStorage.setItem(KEY_LANGUAGE, DEFAULT_LANGUAGE);
+}

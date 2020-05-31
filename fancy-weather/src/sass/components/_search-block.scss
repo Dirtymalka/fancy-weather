@@ -1,5 +1,9 @@
 .header__search {
-  width: 32%;
+  width: 46%;
+  @media (max-width: 760px) {
+    width: 100%;
+    margin-bottom: 36px;
+  }
 }
 
 .search-form {
@@ -8,7 +12,7 @@
 }
 
 .header__search-input {
-  width: 71%;
+  width: 100%;
   border-radius: 5px 0 0 5px;
   border: 1px solid rgba(228, 227, 227, 0.2);
   border-right: 0;
@@ -16,17 +20,33 @@
   background: rgba(76, 82, 85, 0.4);
   outline: 0;
   color: rgb(255, 255, 255);
+  font-size: 2rem;
+  @media (max-width: 760px) {
+    font-size: 3rem;
+  }
 }
 
 .button-voice {
+  &.active {
+    background-image: url(/img/micro-active.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
   background: rgba(76, 82, 85, 0.4);
   border: 1px solid rgba(228, 227, 227, 0.2);
   border-left: 0;
   border-right: 0;
   border-radius: 0;
+  background-image: url(/img/micro.png);
+  padding: 20px;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .header__search-button {
   border-left: 0;
   border-radius: 0 5px 5px 0;
+  @media (max-width: 760px) {
+    display: none;
+  }
 }

@@ -1,8 +1,10 @@
-import { daysOfWeekEn, daysOfWeekRu, daysOfWeekBe, monthsEn, monthsRu, monthsBe, monthIndex, dayIndex } from './constants';
+import { monthIndex, dayIndex, KEY_LANGUAGE } from './constants';
 import { createDate } from './creatingComponents';
+import { dictionary } from './dictionary';
 
 
 const getDateNow = () => {
+  const language = localStorage.getItem(KEY_LANGUAGE) || 'en';
   const dateNow = new Date();
   // const dataDays = daysOfWeekEn;
   // const dataMonths = monthsEn;
@@ -12,8 +14,8 @@ const getDateNow = () => {
   const GetDayIndex = dateNow.getDay();
   localStorage.setItem(dayIndex, GetDayIndex);
 
-  const dayOfWeak = daysOfWeekEn[dateNow.getDay()];
-  const month = monthsEn[dateNow.getMonth()];
+  const dayOfWeak = dictionary[language].days[dateNow.getDay()];
+  const month = dictionary[language].months[dateNow.getMonth()];
   const day = dateNow.getDate();
   createDate(dayOfWeak, day, month);
   // document.querySelector('.date').innerHTML = `${dayOfWeak} ${day} ${month} `;

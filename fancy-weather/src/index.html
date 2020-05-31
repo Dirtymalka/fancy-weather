@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fancy Weather</title>
     <link rel="stylesheet" href="./css/style.css">
-    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=9a61be5f-61ac-46cf-ba19-54678ca5600f" type="text/javascript"></script>
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=9a61be5f-61ac-46cf-ba19-54678ca5600f&width=100%" type="text/javascript"></script>
     <!-- <script src="https://yandex.st/jquery/2.2.3/jquery.min.js" type="text/javascript"></script>
     <script src="geolocated_map.js" type="text/javascript"></script> -->
     <!-- <script src="https://api.mapbox.com/mapbox-gl-js/v1.10.0/mapbox-gl.js"></script>
@@ -18,12 +18,12 @@
         <header class="header">
             <div class="header__buttons">
                 <div class="button button_bg">
-                    <img src="./img/Vector.svg" alt="">
+                    <img src="./img/Vector.svg" alt="" width="23">
                 </div>
                 <div class="buttons-language">
-                    <button class="language-button language-button_en button active">EN</button>
-                    <button class="language-button language-button_ru button">RU</button>
-                    <button class="language-button language-button_be button">BE</button>
+                    <button class="language-button language-button_en button" data-lang="en">EN</button>
+                    <button class="language-button language-button_ru button" data-lang="ru">RU</button>
+                    <button class="language-button language-button_be button" data-lang="be">BE</button>
                 </div>
                 <div class="buttons-temperature-container">
                     <button class="temperature-button temperature-button_fahrenheit button">°F</button>
@@ -34,8 +34,8 @@
             <div class="header__search">
                 <form class="search-form" action="">
                     <input type="search" class="header__search-input" placeholder="Search City">
-                    <button class="button-voice button">
-                        <img src="./img/micro.svg" alt="">
+                    <button class="button-voice button" type="button">
+                        <!-- <img src="./img/micro.svg" alt="" class="micro"> -->
                     </button>
                     <button class="header__search-button button" id="search-button" type="submit">Search</button>
                 </form>
@@ -46,8 +46,9 @@
                 <div class="weather__data">
                     <div class="weather__data_location"></div>
                     <div class="weather__data_data-time"> <span class="date"></span><span class="time"></span></div>
-                    <div class="weather__data_temperature-today"><span>°</span></div>
-                    <img src="./img/t.svg" alt="" class="weather__data_weather-icon">
+                    <div class="weather__data_temperature-today"></div>
+                    <div class="weather__data_weather-icon"></div>
+                    <!-- <img src="./img/t.svg" alt=""> -->
                     <div class="weather__data_weather-info">
                         <!-- <p>Possible Light Rain</p>
                         <p>Feels Like: 6°</p>
@@ -73,10 +74,13 @@
                 </div>
                 <!-- <div class="weather_three-days"></div> -->
             </div>
-            <div class="map-block">
-                <div id="map" style="width: 600px; height: 400px"></div>
-                <div class="coordinates"></div>
+            <div class="map-wrapper">
+                <div class="map-block">
+                    <div id="map" style="width: 600px; height: 400px"></div>
+                    <div class="coordinates"></div>
+                </div>
             </div>
+
         </main>
     </div>
 </body>

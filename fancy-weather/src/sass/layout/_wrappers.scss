@@ -1,12 +1,17 @@
 .app-wrapper {
   display: flex;
   flex-direction: column;
-  width: 1440px;
+  max-width: 1440px;
   height: 100vh;
   min-width: 320px;
   position: relative;
   margin: auto;
   padding: 0 30px;
   background-repeat: no-repeat;
+  background-position: 50%;
   background-size: cover;
+
+  @media (max-width: 1420px) {
+    height: 100%;
+  }
 }
