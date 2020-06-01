@@ -21,6 +21,9 @@
   outline: 0;
   color: rgb(255, 255, 255);
   font-size: 2rem;
+  &.error {
+    box-shadow: 0 0 1rem 0 rgba(226,31,31,.87);
+  }
   @media (max-width: 760px) {
     font-size: 3rem;
   }

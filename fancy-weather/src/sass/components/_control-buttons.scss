@@ -34,7 +34,7 @@
 }
 
 .button {
-  transition: 0.5s linear;
+  transition: 0.2s linear;
   cursor: pointer;
   height: 4.4rem;
   border: 0;
@@ -47,6 +47,9 @@
   &:hover {
     background-color: #b4b8bb;
     color: #fff;
+  }
+  &:active {
+    background: #3c71c147;
   }
   &.active {
     background: rgba(180, 184, 187, 0.7);
@@ -75,4 +78,28 @@
 
 .buttons-temperature-container {
   display: flex;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0);
+  }
+
+  80% {
+    transform: rotate(400deg);
+  }
+
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+.spinner {
+  background: url(./../img/spinner.svg) 50% no-repeat;
+  width: 2rem;
+  height: 3rem;
+  background-size: contain;
+  &.anim {
+    animation: spin 1.4s ease-in-out;
+  }
 }

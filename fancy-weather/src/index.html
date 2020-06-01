@@ -7,10 +7,7 @@
     <title>Fancy Weather</title>
     <link rel="stylesheet" href="./css/style.css">
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=9a61be5f-61ac-46cf-ba19-54678ca5600f&width=100%" type="text/javascript"></script>
-    <!-- <script src="https://yandex.st/jquery/2.2.3/jquery.min.js" type="text/javascript"></script>
-    <script src="geolocated_map.js" type="text/javascript"></script> -->
-    <!-- <script src="https://api.mapbox.com/mapbox-gl-js/v1.10.0/mapbox-gl.js"></script>
-    <link href="https://api.mapbox.com/mapbox-gl-js/v1.10.0/mapbox-gl.css" rel="stylesheet" /> -->
+    <script type="text/javascript" src="https://rawgithub.com/darkskyapp/skycons/master/skycons.js"></script>
 </head>
 
 <body>
@@ -18,7 +15,8 @@
         <header class="header">
             <div class="header__buttons">
                 <div class="button button_bg">
-                    <img src="./img/Vector.svg" alt="" width="23">
+                    <div class="spinner"></div>
+                    <!-- <img src="./img/Vector.svg" alt="" width="23"> -->
                 </div>
                 <div class="buttons-language">
                     <button class="language-button language-button_en button" data-lang="en">EN</button>
@@ -27,7 +25,7 @@
                 </div>
                 <div class="buttons-temperature-container">
                     <button class="temperature-button temperature-button_fahrenheit button">°F</button>
-                    <button class="temperature-button temperature-button_celsius button active">°C</button>
+                    <button class="temperature-button temperature-button_celsius button">°C</button>
                 </div>
 
             </div>
@@ -35,7 +33,6 @@
                 <form class="search-form" action="">
                     <input type="search" class="header__search-input" placeholder="Search City">
                     <button class="button-voice button" type="button">
-                        <!-- <img src="./img/micro.svg" alt="" class="micro"> -->
                     </button>
                     <button class="header__search-button button" id="search-button" type="submit">Search</button>
                 </form>
@@ -46,33 +43,13 @@
                 <div class="weather__data">
                     <div class="weather__data_location"></div>
                     <div class="weather__data_data-time"> <span class="date"></span><span class="time"></span></div>
+                    <div class="speaker"></div>
                     <div class="weather__data_temperature-today"></div>
                     <div class="weather__data_weather-icon"></div>
-                    <!-- <img src="./img/t.svg" alt=""> -->
                     <div class="weather__data_weather-info">
-                        <!-- <p>Possible Light Rain</p>
-                        <p>Feels Like: 6°</p>
-                        <p>Wind: 6 m/s</p>
-                        <p>Humidity: 86%</p> -->
                     </div>
                     <div class="weather_three-days"></div>
-                    <!-- <div class="feature-day">
-                        <p class="feature-day_day">wensday</p>
-                        <p class="feature-temperature">9</p>
-                        <img src="./img/t.svg" alt="" class="feature-day_icon">
-                    </div>
-                    <div class="feature-day">
-                        <p class="feature-day_day">wensday</p>
-                        <p class="feature-temperature">6</p>
-                        <img src="./img/t.svg" alt="" class="feature-day_icon">
-                    </div>
-                    <div class="feature-day">
-                        <p class="feature-day_day">wensday</p>
-                        <p class="feature-temperature">4</p>
-                        <img src="./img/t.svg" alt="" class="feature-day_icon">
-                    </div> -->
                 </div>
-                <!-- <div class="weather_three-days"></div> -->
             </div>
             <div class="map-wrapper">
                 <div class="map-block">

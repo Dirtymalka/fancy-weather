@@ -2,35 +2,28 @@ import { monthIndex, dayIndex, KEY_LANGUAGE } from './constants';
 import { createDate } from './creatingComponents';
 import { dictionary } from './dictionary';
 
-
-const getDateNow = () => {
-  const language = localStorage.getItem(KEY_LANGUAGE) || 'en';
-  const dateNow = new Date();
-  // const dataDays = daysOfWeekEn;
-  // const dataMonths = monthsEn;
-  const GetMonthIndex = dateNow.getMonth();
-  localStorage.setItem(monthIndex, GetMonthIndex);
-
-  const GetDayIndex = dateNow.getDay();
-  localStorage.setItem(dayIndex, GetDayIndex);
-
-  const dayOfWeak = dictionary[language].days[dateNow.getDay()];
-  const month = dictionary[language].months[dateNow.getMonth()];
-  const day = dateNow.getDate();
-  createDate(dayOfWeak, day, month);
-  // document.querySelector('.date').innerHTML = `${dayOfWeak} ${day} ${month} `;
+const changeTimeZone = (zone, lang) => {
+  setTimeout(() => {
+    localStorage.setItem('clearTime', 'true');
+  }, 1000);
+  const options = {
+    timeZone: zone,
+    weekday: 'short',
+    day: 'numeric',
+    month: 'long',
+    hour: 'numeric',
+    minute: 'numeric',
+    second: 'numeric',
+    hour12: false
+  };
+  const addDateNow = () => {
+    if (localStorage.getItem('clearTime') === 'false') {
+      clearInterval(timer);
+    }
+    const date = new Date().toLocaleString(lang, options);
+    document.querySelector('.weather__data_data-time').innerHTML = date;
+  }
+  const timer = setInterval(addDateNow, 1000);
 }
 
-
-const time = () => {
-  const date = new Date();
-  let hours = date.getHours();
-  let minutes = date.getMinutes();
-  let seconds = date.getSeconds();
-  hours = (hours < 10) ? `0${hours}` : hours;
-  minutes = (minutes < 10) ? `0${minutes}` : minutes;
-  seconds = (seconds < 10) ? `0${seconds}` : seconds;
-  document.querySelector('.time').innerHTML = `${hours}:${minutes}:${seconds}`;
-}
-
-export { getDateNow, time };
+export { changeTimeZone };

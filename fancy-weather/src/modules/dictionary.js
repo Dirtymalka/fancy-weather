@@ -353,4 +353,4 @@ export const translationDays = {
     'en': 'Saturday',
     'ru': 'Суббота'
   },
-}
+};

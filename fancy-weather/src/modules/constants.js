@@ -18,3 +18,5 @@ export const KEY_LANGUAGE = 'language';
 export const DEFAULT_LANGUAGE = 'en';
 
 export const WEATHER_CODE = 'weatherCode';
+
+export const TIME_ZONE = 'timeZone';
