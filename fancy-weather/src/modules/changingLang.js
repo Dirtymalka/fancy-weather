@@ -1,20 +1,20 @@
 /* eslint no-param-reassign: "error" */
+/* eslint prefer-destructuring: ["error", {VariableDeclarator: {object: true}}] */
 
-import { monthIndex, dayIndex, KEY_LANGUAGE, WEATHER_CODE, TIME_ZONE } from './constants';
+import { MONTH_INDEX, DAY_INDEX, KEY_LANGUAGE, WEATHER_CODE } from './constants';
 import { translationDays, dictionary } from './dictionary';
-import { changeTimeZone } from './date';
 
-const translateCity = async(city, lang) => {
+const translateCity = async (city, lang) => {
   const url = `https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20200503T122912Z.00d59eb838b518b4.adec26279b03b0ca53aad2d5c048461dcc45df83&text=${city}&lang=${lang}`;
   const response = await fetch(url);
   const result = await response.json();
   document.querySelector('.weather__data_location').textContent = result.text[0];
-  }
+}
 
 const translate = (data, lang) => {
   const city = document.querySelector('.weather__data_location').textContent;
-  // document.querySelector('.day-of-week').textContent = data[lang].days[localStorage.getItem(dayIndex)];
-  // document.querySelector('.month').textContent = data[lang].months[localStorage.getItem(monthIndex)];
+  document.querySelector('.day-of-week').textContent = data[lang].days[localStorage.getItem(DAY_INDEX)];
+  document.querySelector('.month').textContent = data[lang].months[localStorage.getItem(MONTH_INDEX)];
   document.querySelector('.header__search-button').textContent = data[lang].staticInfo.search;
   document.querySelector('.header__search-input').setAttribute('placeholder', data[lang].staticInfo.placeholder);
   document.querySelector('.lat').textContent = data[lang].staticInfo.coordinates.lat;
@@ -51,8 +51,6 @@ const changeLanguage = (e) => {
   });
   e.target.classList.add('active');
   localStorage.setItem(KEY_LANGUAGE, choseLanguage);
-  localStorage.setItem('clearTime', 'false');
-  changeTimeZone(localStorage.getItem(TIME_ZONE), choseLanguage);
   translate(dictionary, choseLanguage);
 }
 

@@ -1,3 +1,6 @@
+/* global webkitSpeechRecognition */
+/* eslint no-undef: "error" */
+
 import { getGeoPosition } from './map';
 
 const SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;

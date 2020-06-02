@@ -1,6 +1,6 @@
 import { KEY_LANGUAGE, WEATHER_CODE, TIME_ZONE, TEMPERATURE_UNIT_NAME } from './constants';
 import { createWeatherTodayContent, createWeatherFeatureContent } from './creatingComponents';
-import { changeTimeZone } from './date';
+import changeTimeZone from './date';
 import errorHandler from './errorHandler';
 
 const getInfoWeatherOnThreeDays = (data) => {
@@ -18,7 +18,6 @@ const getInfoWeatherOnThreeDays = (data) => {
 }
 
 const getInfoWeatherToday = (data) => {
-  console.log(data)
   localStorage.setItem(WEATHER_CODE, data.weather.code);
   const info = {
     temperature: Math.round(data.temp),
@@ -42,7 +41,6 @@ const getWeatherOnThreeDays = async (latitude, longitude) => {
   const main = 'https://api.weatherbit.io/v2.0/forecast/daily?';
   const coordinates = `&lat=${latitude}&lon=${longitude}`
   const optionsAndLanguage = `&days=4&units=${units}&lang=${language}`;
-  // const keyAPI = '&key=59faf9d6712e43829d6b1b0619e0c4d2';
   const keyAPI = '&key=1e31c50739494898ba037bd6548aa0ad';
   const url = main + coordinates + optionsAndLanguage + keyAPI;
   try {
@@ -52,7 +50,6 @@ const getWeatherOnThreeDays = async (latitude, longitude) => {
     createWeatherFeatureContent(infoData);
   } catch (e) {
     errorHandler();
-    console.log(e.message)
   }
 }
 
@@ -66,7 +63,6 @@ const getWeatherToday = async (latitude, longitude) => {
   const main = 'https://api.weatherbit.io/v2.0/current?';
   const coordinates = `&lat=${latitude}&lon=${longitude}`
   const optionsAndLanguage = `&units=${units}&lang=${language}`;
-  // const keyAPI = '&key=59faf9d6712e43829d6b1b0619e0c4d2';
   const keyAPI = '&key=1e31c50739494898ba037bd6548aa0ad';
   const url = main + coordinates + optionsAndLanguage + keyAPI;
   try {
@@ -79,7 +75,6 @@ const getWeatherToday = async (latitude, longitude) => {
     localStorage.setItem(TIME_ZONE, infoData.timeZone);
   } catch (e) {
     errorHandler();
-    console.log(e.message)
   }
 }
 

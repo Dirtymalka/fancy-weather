@@ -1,4 +1,4 @@
-import { KEY_LANGUAGE, dayIndex } from './constants';
+import { KEY_LANGUAGE, DAY_INDEX } from './constants';
 import { dictionary } from './dictionary';
 import skycons from './skycons';
 import icons from './mapForIcons';
@@ -20,22 +20,19 @@ const createWeatherTodayContent = (data) => {
   <p><span class="wind-text">${dictionary[language].staticInfo.weatherInfo.wind}</span>: <span class="wind-speed">${data.wind}</span> m/s</p>
   <p><span class="humidity-text">${dictionary[language].staticInfo.weatherInfo.humidity}</span>: <span class="humidity-description">${data.humidity}</span>%</p>`;
   document.querySelector('.weather__data_temperature-today').textContent = data.temperature;
-  // const icon = `<img src="https://www.weatherbit.io/static/img/icons/${data.icon}.png" alt="">`;
   const icon = `<canvas id="icon1" width="128" height="128"></canvas>`;
   containerForIcon.insertAdjacentHTML('beforeend', icon);
   containerForInfo.insertAdjacentHTML('beforeend', content);
-  console.log(icons[data.icon])
   skycons.add(document.getElementById("icon1"), `${icons[data.icon]}`);
   skycons.play();
 }
 
 const createWeatherFeatureContent = (data) => {
-  console.log(data)
   const language = localStorage.getItem(KEY_LANGUAGE) || 'en';
   const container = document.querySelector('.weather_three-days');
   container.innerHTML = '';
 
-  let index = +localStorage.getItem(dayIndex) + 1;
+  let index = +localStorage.getItem(DAY_INDEX) + 1;
   data.forEach((day, i) => {
     const dayWeek = dictionary[language].weekDays[index];
     index += 1;

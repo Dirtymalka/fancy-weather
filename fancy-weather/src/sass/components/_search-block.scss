@@ -8,7 +8,7 @@
 
 .search-form {
   display: flex;
-  display: flex;
+  position: relative;
 }
 
 .header__search-input {
@@ -44,6 +44,8 @@
   padding: 20px;
   background-size: cover;
   background-repeat: no-repeat;
+  opacity: .8;
+  transition: .2s;
 }
 
 .header__search-button {

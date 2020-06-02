@@ -45,6 +45,9 @@
     background-size: contain;
     background-position: right;
     cursor: pointer;
+    &:hover {
+      opacity: 0.6;
+    }
   }
   .weather__data_temperature-today {
     grid-column: 1/3;

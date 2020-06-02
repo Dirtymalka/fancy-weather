@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="./css/style.css">
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=9a61be5f-61ac-46cf-ba19-54678ca5600f&width=100%" type="text/javascript"></script>
     <script type="text/javascript" src="https://rawgithub.com/darkskyapp/skycons/master/skycons.js"></script>
+    <title>Fancy Weather</title>
 </head>
 
 <body>
@@ -16,7 +17,6 @@
             <div class="header__buttons">
                 <div class="button button_bg">
                     <div class="spinner"></div>
-                    <!-- <img src="./img/Vector.svg" alt="" width="23"> -->
                 </div>
                 <div class="buttons-language">
                     <button class="language-button language-button_en button" data-lang="en">EN</button>
@@ -31,7 +31,8 @@
             </div>
             <div class="header__search">
                 <form class="search-form" action="">
-                    <input type="search" class="header__search-input" placeholder="Search City">
+                    <span data-name="keyboard" class="keyboard"></span>
+                    <input type="search" class="header__search-input" required placeholder="Search City">
                     <button class="button-voice button" type="button">
                     </button>
                     <button class="header__search-button button" id="search-button" type="submit">Search</button>

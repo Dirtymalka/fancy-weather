@@ -1,4 +1,4 @@
-import { addLoader, removeLoader } from './loader';
+import { removeLoader } from './loader';
 
 const getBackgroundImage = async (city) => {
   let newCity;
@@ -10,7 +10,6 @@ const getBackgroundImage = async (city) => {
   const main = 'https://api.unsplash.com/photos/random';
   const query = `?query=town,${newCity}`;
   const key = '&client_id=wORjWMSDHGib97wADP11nT19E7SOmo7Yjz8OENQWMKs';
-  // const key = '&key=T_A3OKaARgaOCixaG1xXJILuuEe7tbUeAEaNPsqpYlI';
   const url = main + query + key;
   try {
     const request = await fetch(url);
@@ -22,7 +21,7 @@ const getBackgroundImage = async (city) => {
       removeLoader();
       document.querySelector('#app-wrapper').style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${imgUrl})`;
     }
-  } catch (e) {
+  } catch (error) {
     removeLoader();
     document.querySelector('#app-wrapper').style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(./img/bg3.png)`;
   }
@@ -30,4 +29,4 @@ const getBackgroundImage = async (city) => {
 }
 
 
-export { getBackgroundImage };
+export default getBackgroundImage;

@@ -1,0 +1,117 @@
+.keyboard {
+  position: absolute;
+  width: 48px;
+  height: 28px;
+  background-image: url(../img/tia.png);
+  right: 120px;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: 0.2s;
+  right: 148px;
+  top: 7px;
+}
+
+.keyboard:hover {
+  opacity: 1;
+}
+
+.keyboard-container {
+  position: absolute;
+  display: flex;
+  flex-wrap: wrap;
+  width: 590px;
+  top: 44px;
+  left: 4%;
+  font-size: 1.5rem;
+  line-height: 15px;
+  z-index: 5;
+  background: #2c3e50;
+  display: none;
+  animation: anim-effect 0.5s ease-out forwards;
+}
+
+.keyboard-container.active {
+  display: initial;
+}
+
+.key {
+  box-sizing: border-box;
+  width: 35px;
+  height: 35px;
+  margin: 5px;
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  border: 1px solid #f9f9f9;
+  border-radius: 5px;
+  background-color: rgb(255, 255, 255);
+  color: black;
+}
+
+.key:hover {
+  background-color: rgba(176, 193, 219, 0.8);
+  color: rgb(255, 255, 255);
+}
+
+.key.tap-shift {
+  flex-direction: column;
+}
+
+.shift {
+  width: 80px;
+}
+
+.shift.active {
+  background: rgba(176, 193, 219, 0.8);
+  color: rgb(255, 255, 255);
+}
+
+.enter {
+  width: 83px;
+}
+
+.space {
+  width: 400px;
+}
+
+.lang-change {
+  width: 45px;
+}
+
+.backspace {
+  width: 82px;
+}
+
+.left,
+.right {
+  width: 50px;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.right {
+  background-image: url(../img/right.svg);
+  background-position: right;
+}
+
+.left {
+  background-image: url(../img/left.svg);
+}
+
+.key:active {
+  animation: anim-effect 0.5s ease-out forwards;
+}
+
+@keyframes anim-effect {
+  0% {
+    opacity: 0.5;
+    transform: scale3d(0.7, 0.7, 1);
+  }
+  to {
+    opacity: 1;
+    transform: scale3d(1, 1, 1);
+  }
+}

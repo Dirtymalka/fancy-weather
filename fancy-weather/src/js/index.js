@@ -1,24 +1,25 @@
-import '../css/style.css';
 import '../css/style.scss';
 import { KEY_LANGUAGE, DEFAULT_LANGUAGE } from '../modules/constants';
-import { getDateNow, time } from '../modules/date';
 import { getGeoPosition } from '../modules/map';
-import { getBackgroundImage } from '../modules/background';
+import getBackgroundImage from '../modules/background';
 import { changeTemperatureUnits, chooseActiveUnit } from '../modules/changeOfUnits';
 import { changeLanguage, chooseActiveLanguage } from '../modules/changingLang';
-import { addMicrophoneHandler, recognition, addSpeakHandler } from '../modules/speack-search';
-import { addLoader, removeLoader } from '../modules/loader';
-import { speakerHandler } from '../modules/speaker';
+import { addMicrophoneHandler, recognition, addSpeakHandler } from '../modules/speak-search';
+import { addLoader } from '../modules/loader';
+import speakerHandler from '../modules/speaker';
+import Keyboard from '../modules/keyBoard';
 
 document.addEventListener("DOMContentLoaded", () => {
   getGeoPosition();
-  // getDateNow();
-  // setInterval(() => {
-  //   time();
-  // }, 1000);
+
+  const keyboard = new Keyboard();
+  keyboard.createKeyboardContainer();
+  keyboard.init();
+  document.querySelector('.keyboard').onclick = keyboard.addClassActive;
 
   document.querySelector('.search-form').onsubmit = (ev) => {
     ev.preventDefault();
+    document.querySelector('.keyboard').onclick = keyboard.addClassActive;
     getGeoPosition();
   };
 
@@ -26,7 +27,6 @@ document.addEventListener("DOMContentLoaded", () => {
   recognition.onresult = addSpeakHandler;
 
   chooseActiveLanguage();
-
   chooseActiveUnit();
 
   document.querySelector('.buttons-temperature-container').onclick = changeTemperatureUnits;
@@ -44,7 +44,5 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem(KEY_LANGUAGE, DEFAULT_LANGUAGE);
   }
 
-
   document.querySelector('.speaker').onclick = speakerHandler;
-
 });

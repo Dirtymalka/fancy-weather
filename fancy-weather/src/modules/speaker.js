@@ -30,8 +30,7 @@ const speakerHandler = () => {
   const utterThis = new SpeechSynthesisUtterance(phrasesMap[language]);
   utterThis.lang = language;
   synth.speak(utterThis);
-
 }
 
 
-export { speakerHandler };
+export default speakerHandler;
