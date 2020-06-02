@@ -1,1 +1,2 @@
-# fancy-weather
+RS School
+Artem Antonov
