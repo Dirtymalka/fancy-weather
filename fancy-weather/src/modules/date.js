@@ -1,7 +1,7 @@
 /* eslint no-use-before-define: [2, {functions: false}] */
 /* eslint no-use-before-define: ["error", { "variables": false }] */
 
-import { MONTH_INDEX, DAY_INDEX, KEY_LANGUAGE } from './constants';
+import { MONTH_INDEX, DAY_INDEX, KEY_LANGUAGE, CLEAR_TIME, TRUE, FALSE } from './constants';
 import { createDate } from './creatingComponents';
 import { dictionary } from './dictionary';
 
@@ -22,7 +22,7 @@ const addDate = () => {
 
 const changeTimeZone = (zone, lang) => {
   setTimeout(() => {
-    localStorage.setItem('clearTime', 'true');
+    localStorage.setItem(CLEAR_TIME, TRUE);
   }, 1000);
 
   const options = {
@@ -37,7 +37,7 @@ const changeTimeZone = (zone, lang) => {
   };
 
   const addTimeNow = () => {
-    if (localStorage.getItem('clearTime') === 'false') {
+    if (localStorage.getItem(CLEAR_TIME) === FALSE) {
       clearInterval(timer);
     }
 

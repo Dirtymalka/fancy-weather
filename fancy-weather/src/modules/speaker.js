@@ -17,7 +17,7 @@ const speakerHandler = () => {
 
   const phraseRu = `Сегодня ${description}, температура ${temperature} градусов ${unit}, ${feeling} как ${feelingTemperature}. ${wind} - ${windSpeed} метров в секунду. ${humidity} ${humidityDescription} процентов`;
 
-  const phraseBe = `Сёння ${description}, тэмпература ${temperature} градусаў ${unit}, ${feeling} як ${feelingTemperature}. ${wind} - ${windSpeed} метраў у секунду. ${humidity} ${humidityDescription} адсоткаў`;
+  const phraseBe = `Сёння ${description}, тэмпература ${temperature} градусаў ${unit}, ${feeling} як ${feelingTemperature}. ${wind} - ${windSpeed} метраў у сякунду. ${humidity} ${humidityDescription} адсоткаў`;
 
   const phrasesMap = {
     'en': phraseEn,

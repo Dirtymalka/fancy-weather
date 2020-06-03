@@ -9,6 +9,9 @@
   transition: 0.2s;
   right: 148px;
   top: 7px;
+  @media (max-width: 1024px) {
+    display: none;
+  }
 }
 
 .keyboard:hover {

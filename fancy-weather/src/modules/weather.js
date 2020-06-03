@@ -1,18 +1,21 @@
-import { KEY_LANGUAGE, WEATHER_CODE, TIME_ZONE, TEMPERATURE_UNIT_NAME } from './constants';
+import { KEY_LANGUAGE, WEATHER_CODE, TIME_ZONE, TEMPERATURE_UNIT_NAME, CLEAR_TIME, FALSE } from './constants';
 import { createWeatherTodayContent, createWeatherFeatureContent } from './creatingComponents';
 import changeTimeZone from './date';
 import errorHandler from './errorHandler';
 
+const unitsData = {
+  'celsius': 'M',
+  'fahrenheit': 'I'
+};
+
 const getInfoWeatherOnThreeDays = (data) => {
   const newData = data.slice();
   newData.shift();
-  const dataInfo = [];
-  newData.forEach(day => {
-    const dayInfo = {
-      temperature: Math.round(day.temp),
-      icon: day.weather.code
-    };
-    dataInfo.push(dayInfo);
+  const dataInfo = newData.map(newDataItem => {
+    return {
+      temperature: Math.round(newDataItem.temp),
+      icon: newDataItem.weather.code
+    }
   });
   return dataInfo;
 }
@@ -33,10 +36,6 @@ const getInfoWeatherToday = (data) => {
 
 const getWeatherOnThreeDays = async (latitude, longitude) => {
   const language = localStorage.getItem(KEY_LANGUAGE);
-  const unitsData = {
-    'celsius': 'M',
-    'fahrenheit': 'I'
-  };
   const units = unitsData[localStorage.getItem(TEMPERATURE_UNIT_NAME)] || unitsData.celsius;
   const main = 'https://api.weatherbit.io/v2.0/forecast/daily?';
   const coordinates = `&lat=${latitude}&lon=${longitude}`
@@ -55,10 +54,6 @@ const getWeatherOnThreeDays = async (latitude, longitude) => {
 
 const getWeatherToday = async (latitude, longitude) => {
   const language = localStorage.getItem(KEY_LANGUAGE);
-  const unitsData = {
-    'celsius': 'M',
-    'fahrenheit': 'I'
-  };
   const units = unitsData[localStorage.getItem(TEMPERATURE_UNIT_NAME)] || unitsData.celsius;
   const main = 'https://api.weatherbit.io/v2.0/current?';
   const coordinates = `&lat=${latitude}&lon=${longitude}`
@@ -70,7 +65,7 @@ const getWeatherToday = async (latitude, longitude) => {
     const data = await response.json();
     const infoData = await getInfoWeatherToday(data.data[0]);
     createWeatherTodayContent(infoData);
-    localStorage.setItem('clearTime', 'false');
+    localStorage.setItem(CLEAR_TIME, FALSE);
     changeTimeZone(infoData.timeZone, language);
     localStorage.setItem(TIME_ZONE, infoData.timeZone);
   } catch (e) {

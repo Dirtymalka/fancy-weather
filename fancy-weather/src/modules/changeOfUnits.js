@@ -39,7 +39,7 @@ const changeTemperatureUnits = (e) => {
 }
 
 const chooseActiveUnit = () => {
-  if (localStorage.getItem(TEMPERATURE_UNIT_NAME) === 'fahrenheit') {
+  if (localStorage.getItem(TEMPERATURE_UNIT_NAME) === TEMPERATURE_UNIT_FAHRENHEIT) {
     document.querySelector('.temperature-button_fahrenheit').classList.add('active');
     return;
   }

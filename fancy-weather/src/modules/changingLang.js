@@ -1,7 +1,7 @@
 /* eslint no-param-reassign: "error" */
 /* eslint prefer-destructuring: ["error", {VariableDeclarator: {object: true}}] */
 
-import { MONTH_INDEX, DAY_INDEX, KEY_LANGUAGE, WEATHER_CODE } from './constants';
+import { MONTH_INDEX, DAY_INDEX, KEY_LANGUAGE, WEATHER_CODE, DEFAULT_LANGUAGE } from './constants';
 import { translationDays, dictionary } from './dictionary';
 
 const translateCity = async (city, lang) => {
@@ -33,7 +33,7 @@ const translate = (data, lang) => {
 }
 
 const chooseActiveLanguage = () => {
-  const language = localStorage.getItem(KEY_LANGUAGE) || 'en';
+  const language = localStorage.getItem(KEY_LANGUAGE) || DEFAULT_LANGUAGE;
   document.querySelectorAll('.language-button').forEach((button) => {
     if (button.textContent.toLowerCase() === language) {
       button.classList.add('active');

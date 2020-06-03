@@ -1,4 +1,4 @@
-import { KEY_LANGUAGE, DAY_INDEX } from './constants';
+import { KEY_LANGUAGE, DAY_INDEX, DEFAULT_LANGUAGE } from './constants';
 import { dictionary } from './dictionary';
 import skycons from './skycons';
 import icons from './mapForIcons';
@@ -9,7 +9,7 @@ const createTitle = (country) => {
 }
 
 const createWeatherTodayContent = (data) => {
-  const language = localStorage.getItem(KEY_LANGUAGE) || 'en';
+  const language = localStorage.getItem(KEY_LANGUAGE) || DEFAULT_LANGUAGE;
   const containerForInfo = document.querySelector('.weather__data_weather-info');
   const containerForIcon = document.querySelector('.weather__data_weather-icon');
   containerForIcon.innerHTML = '';
@@ -28,7 +28,7 @@ const createWeatherTodayContent = (data) => {
 }
 
 const createWeatherFeatureContent = (data) => {
-  const language = localStorage.getItem(KEY_LANGUAGE) || 'en';
+  const language = localStorage.getItem(KEY_LANGUAGE) || DEFAULT_LANGUAGE;
   const container = document.querySelector('.weather_three-days');
   container.innerHTML = '';
 
@@ -65,7 +65,7 @@ const createDate = (dayOfWeak, day, month) => {
 }
 
 const createCoordinates = (latitude, longitude) => {
-  const language = localStorage.getItem(KEY_LANGUAGE) || 'en';
+  const language = localStorage.getItem(KEY_LANGUAGE) || DEFAULT_LANGUAGE;
   const containerMap = document.querySelector('.coordinates');
   containerMap.innerHTML = '';
   const newLatitude = latitude.toString().split(".")[0];
